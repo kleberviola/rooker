@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rooker — Branding Estratégico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #030303;
+      --white: #fcfcfc;
+      --gray: #767676;
+      --light-gray: #d7d7d7;
+      --bg: #fcfcfc;
+      --max: 1200px;
+      --pad: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px var(--pad);
+      background: transparent;
+    }
+
+    .nav-logo {
+      height: 20px;
+    }
+
+    .nav-avatar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: 65px;
+      height: 52px;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-avatar img {
+      position: absolute;
+      height: auto;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: 84px;
+    }
+
+    .hero-logo-wrap {
+      padding: 160px var(--pad) 0;
+    }
+    .hero-logo-wrap img {
+      width: 100%;
+      display: block;
+    }
+
+    .hero-img {
+      margin: 160px var(--pad) 0;
+      width: calc(100% - 32px);
+      height: clamp(300px, 50vw, 656px);
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── SECTIONS WRAPPER ── */
+    .container {
+      padding: 0 var(--pad);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .section-number {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray);
+      letter-spacing: -0.7px;
+    }
+
+    /* ── ABOUT SECTION ── */
+    .about {
+      padding: 160px 0;
+    }
+
+    .about h1 {
+      font-size: clamp(40px, 5.3vw, 64px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -3.2px;
+      max-width: 789px;
+      margin-bottom: 40px;
+    }
+
+    .about-body {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 576px;
+    }
+
+    .about-text p {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ── FLOW BUTTON ── */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      overflow: hidden;
+      border-radius: 100px;
+      border: 1.5px solid rgba(51,51,51,0.4);
+      background: transparent;
+      padding: 12px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.6s cubic-bezier(0.23,1,0.32,1),
+                  color 0.6s cubic-bezier(0.23,1,0.32,1),
+                  border-radius 0.6s cubic-bezier(0.23,1,0.32,1);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .btn:hover {
+      border-color: transparent;
+      color: var(--white);
+      border-radius: 12px;
+    }
+    .btn:active { transform: scale(0.95); }
+
+    /* arrow entrada (esquerda) */
+    .btn .arr-in {
+      position: absolute;
+      left: -25%;
+      width: 16px; height: 16px;
+      z-index: 9;
+      transition: left 0.8s cubic-bezier(0.34,1.56,0.64,1),
+                  stroke 0.4s;
+      stroke: var(--black);
+      fill: none;
+      flex-shrink: 0;
+    }
+    .btn:hover .arr-in { left: 16px; stroke: var(--white); }
+
+    /* texto */
+    .btn .btn-label {
+      position: relative;
+      z-index: 1;
+      transform: translateX(-4px);
+      transition: transform 0.8s ease-out;
+      white-space: nowrap;
+    }
+    .btn:hover .btn-label { transform: translateX(12px); }
+
+    /* círculo de fundo */
+    .btn .btn-circle {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 16px; height: 16px;
+      background: var(--black);
+      border-radius: 50%;
+      opacity: 0;
+      transition: width 0.8s cubic-bezier(0.19,1,0.22,1),
+                  height 0.8s cubic-bezier(0.19,1,0.22,1),
+                  opacity 0.8s cubic-bezier(0.19,1,0.22,1);
+    }
+    .btn:hover .btn-circle {
+      width: 340px; height: 340px;
+      opacity: 1;
+    }
+
+    /* arrow saída (direita) */
+    .btn .arr-out {
+      position: absolute;
+      right: 16px;
+      width: 16px; height: 16px;
+      z-index: 9;
+      stroke: var(--black);
+      fill: none;
+      flex-shrink: 0;
+      transition: right 0.8s cubic-bezier(0.34,1.56,0.64,1),
+                  stroke 0.4s;
+    }
+    .btn:hover .arr-out { right: -25%; stroke: var(--white); }
+
+    .btn-sm { padding: 10px 28px; }
+
+    .btn-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .btn-text img { width: 14px; height: 14px; }
+    .btn-text:hover { opacity: 0.7; }
+    .btn-text-sm { font-size: 14px; }
+
+    /* ── CASES ── */
+    .cases {
+      padding: 0 0 160px;
+    }
+
+    .cases-header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .cases-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cases-header-top h2 {
+      font-size: clamp(36px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+    }
+
+    .cases-header-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cases-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.4;
+      max-width: 493px;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 10px;
+      row-gap: 40px;
+    }
+
+    /* Linha 1: pequena(4) + grande(8) */
+    .case-item:nth-child(1) { grid-column: span 4; }
+    .case-item:nth-child(2) { grid-column: span 8; }
+    /* Linha 2: grande(8) + pequena(4) */
+    .case-item:nth-child(3) { grid-column: span 8; }
+    .case-item:nth-child(4) { grid-column: span 4; }
+
+    .case-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .case-img-wrap {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .case-img {
+      width: 100%;
+      height: clamp(300px, 38vw, 520px);
+      display: block;
+      object-fit: cover;
+      transition: filter 0.6s ease, transform 0.6s ease;
+    }
+
+    .case-item:hover .case-img {
+      filter: blur(5px);
+      transform: scale(1.03);
+    }
+
+    /* ── CURSOR VER ── */
+    .case-item { cursor: none; }
+
+    #ver-cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 88px; height: 88px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  opacity 0.3s ease;
+      will-change: transform, top, left;
+    }
+    #ver-cursor.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .case-name {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .case-tag {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1;
+    }
+
+    /* ── SERVIÇOS ── */
+    .services {
+      padding: 0 0 160px;
+    }
+
+    .services-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 32px;
+    }
+
+    .services h2 {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .service-item {
+      border-top: 1px solid var(--light-gray);
+    }
+
+    .service-item:last-child {
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .service-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .service-name {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--light-gray);
+      letter-spacing: -1.8px;
+      line-height: 1;
+      transition: color 0.4s ease;
+    }
+
+    .service-item.active .service-name { color: var(--black); }
+
+    .service-plus {
+      width: 36px;
+      height: 36px;
+      transition: transform 0.4s ease;
+      flex-shrink: 0;
+    }
+    .service-item.active .service-plus { transform: rotate(45deg); }
+
+    .service-body {
+      max-height: 0;
+      overflow: hidden;
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.6;
+      max-width: 680px;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.4s ease;
+      opacity: 0;
+      padding: 0;
+    }
+    .service-item.active .service-body {
+      max-height: 300px;
+      padding: 0 0 28px;
+      opacity: 1;
+    }
+
+    /* ── ABOUT ROOKER ── */
+    .about-rooker {
+      padding: 0 0 160px;
+    }
+
+    .about-rooker-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-rooker-img {
+      width: 100%;
+      height: clamp(380px, 40vw, 560px);
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .about-rooker-content h2 {
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1.05;
+      margin-bottom: 32px;
+    }
+
+    .about-rooker-content p {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1.4;
+      margin-bottom: 32px;
+    }
+
+    /* ── PROCESS ── */
+    .process {
+      padding: 0 0 160px;
+    }
+
+    .process h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1.05;
+      max-width: 700px;
+      margin-bottom: 60px;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--light-gray);
+      border-radius: 171.5px;
+      padding: 40px 24px;
+      position: relative;
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      padding: 0 16px;
+      position: relative;
+    }
+
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 20px;
+      bottom: 20px;
+      width: 1px;
+      background: var(--light-gray);
+    }
+
+    .step-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-circle-gray { background: #e8e8e8; }
+    .step-circle-dark { background: var(--black); }
+
+    .step-line {
+      width: 1px;
+      height: 80px;
+      background: var(--light-gray);
+    }
+
+    .step-number-name {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -1.2px;
+      line-height: 1;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.4;
+      max-width: 226px;
+    }
+
+    /* ── BLOG ── */
+    .blog {
+      padding: 0 0 160px;
+    }
+
+    .blog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+
+    .blog h2 {
+      font-size: clamp(36px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: 375px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .blog-date {
+      font-size: 14px;
+      color: var(--gray);
+      letter-spacing: -0.7px;
+      margin-bottom: 8px;
+    }
+
+    .blog-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      margin: 0 0 0 0;
+      background: #f3f3f3;
+      padding: 160px 0;
+    }
+
+    .cta h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .cta p {
+      font-size: 16px;
+      color: var(--black);
+      line-height: 1.4;
+      max-width: 560px;
+      margin-bottom: 40px;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cta-whatsapp {
+      font-size: 16px;
+      color: var(--black);
+      line-height: 1.4;
+    }
+    .cta-whatsapp a {
+      color: var(--black);
+      text-underline-position: from-font;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 400px var(--pad) 32px;
+    }
+
+    .footer-logo {
+      width: 100%;
+      display: block;
+      margin-bottom: 48px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links .btn-text {
+      color: var(--white);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer-links .btn-text:hover { opacity: 1; }
+
+    .footer-links .btn-text img {
+      filter: invert(1);
+    }
+
+    .footer-copyright {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.8px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .fade-up.visible { animation-play-state: running; }
+
+    /* stagger delays */
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-body { grid-template-columns: 1fr; }
+      .cases-grid { grid-template-columns: 1fr 1fr; }
+      .cases-header { flex-direction: column; gap: 20px; }
+      .cases-header-right { align-items: flex-start; }
+      .cases-desc { text-align: left; }
+      .process-steps { grid-template-columns: 1fr 1fr; border-radius: 24px; }
+      .process-step:not(:last-child)::after { display: none; }
+      .about-rooker-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .cases-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .col-1-top, .col-1-bottom, .col-2-top, .col-2-bottom, .col-3-top, .col-3-bottom { height: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ver-cursor">VER</div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div></div>
+    <div class="nav-avatar">
+      <img src="assets/avatar-v1.svg" alt="" style="left:0;top:0;width:40%;height:50%" />
+      <img src="assets/avatar-v2.svg" alt="" style="left:40%;top:0;width:20%;height:50%" />
+      <img src="assets/avatar-v3.svg" alt="" style="left:60%;top:0;width:40%;height:50%" />
+      <img src="assets/avatar-v4.svg" alt="" style="left:20%;top:50%;width:40%;height:50%" />
+      <img src="assets/avatar-v5.svg" alt="" style="left:0;top:50%;width:20%;height:50%" />
+      <img src="assets/avatar-v4.svg" alt="" style="left:60%;top:50%;width:40%;height:50%" />
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-logo-wrap">
+      <img src="assets/logo_rooker_black.svg" alt="Rooker" />
+    </div>
+    <video class="hero-img" autoplay muted loop playsinline>
+      <source src="assets/video_rooker.mp4" type="video/mp4" />
+    </video>
+  </section>
+
+  <!-- ABOUT — SECTION 01 -->
+  <section class="about">
+    <div class="container">
+      <div class="section-label">
+        <div></div>
+        <span class="section-number">/01</span>
+      </div>
+      <h1 class="fade-up">A Rooker alinha a imagem da sua empresa com o negócio que ela já se tornou.</h1>
+      <div class="about-body">
+        <div class="about-text fade-up delay-1">
+          <p>Empresas crescem, mudam de cliente, mudam de mercado. A marca, quase sempre, fica parada no tempo. O cliente certo não reconhece o que você se tornou. O errado continua chegando, atraído pela imagem antiga.</p>
+          <p>A Rooker existe para resolver esse desencontro. Não com atualização estética. Com correção de rota.</p>
+        </div>
+        <div class="fade-up delay-2">
+          <a href="#contato" class="btn">
+            <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span class="btn-label">Marcar uma conversa</span>
+            <span class="btn-circle"></span>
+            <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES — SECTION 02 -->
+  <section class="cases">
+    <div class="container">
+      <div class="cases-header">
+        <div class="cases-header-top">
+          <h2>Cases selecionados</h2>
+          <span class="section-number">/02</span>
+        </div>
+        <div class="cases-header-bottom">
+          <p class="cases-desc">Uma seleção criteriosa de projetos que refletem nosso compromisso com a simplicidade e o design estratégico.</p>
+          <a href="#" class="btn btn-sm">
+            <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span class="btn-label">Ver todos os projetos</span>
+            <span class="btn-circle"></span>
+            <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="cases-grid">
+        <div class="case-item">
+          <div class="case-img-wrap"><img src="assets/fabiola_molina.png" class="case-img" alt="Fabiola Molina" /></div>
+          <span class="case-name">Fabiola Molina</span>
+          <span class="case-tag">Estratégia, Identidade Visual</span>
+        </div>
+        <div class="case-item">
+          <div class="case-img-wrap"><img src="assets/casa_lemham.jpg" class="case-img" alt="Casa Lemham" /></div>
+          <span class="case-name">Casa Lemham</span>
+          <span class="case-tag">Estratégia, Identidade Visual</span>
+        </div>
+        <div class="case-item">
+          <div class="case-img-wrap"><img src="assets/belief.jpg" class="case-img" alt="Belief" /></div>
+          <span class="case-name">Belief</span>
+          <span class="case-tag">Estratégia, Identidade Visual, Webdesign</span>
+        </div>
+        <div class="case-item">
+          <div class="case-img-wrap"><img src="assets/inspire_seguros.jpg" class="case-img" alt="Inspire Seguros" /></div>
+          <span class="case-name">Inspire Seguros</span>
+          <span class="case-tag">Estratégia, Identidade Visual, Webdesign</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS — SECTION 03 -->
+  <section class="services">
+    <div class="container">
+      <div class="services-title-row">
+        <h2>Serviços</h2>
+        <span class="section-number">/03</span>
+      </div>
+
+      <div class="service-item active" id="svc-branding">
+        <div class="service-toggle" onclick="toggleService('svc-branding')">
+          <span class="service-name">Branding</span>
+          <img src="assets/plus-icon.svg" class="service-plus" alt="" />
+        </div>
+        <div class="service-body">
+          Construção de identidade de marca do zero. Posicionamento, naming, identidade visual e sistema de aplicação. Para empresas que ainda não têm uma marca clara — ou que nunca tiveram.
+        </div>
+      </div>
+
+      <div class="service-item" id="svc-rebranding">
+        <div class="service-toggle" onclick="toggleService('svc-rebranding')">
+          <span class="service-name">Rebranding</span>
+          <img src="assets/plus-icon.svg" class="service-plus" alt="" />
+        </div>
+        <div class="service-body">
+          Revisão estratégica e visual de marcas existentes. Para empresas que cresceram, mudaram de público ou de mercado, e precisam que a marca reflita quem elas são hoje — não quem eram quando começaram.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE A ROOKER -->
+  <section class="about-rooker">
+    <div class="container">
+      <div class="about-rooker-grid">
+        <div>
+          <img src="assets/portfolio-5.jpg" class="about-rooker-img" alt="Rooker — processo criativo" />
+        </div>
+        <div class="about-rooker-content">
+          <h2>A Rooker não executa briefings. Entrega direção, com o argumento por trás de cada decisão.</h2>
+          <p>Isso começa antes do primeiro traço. Entendimento do negócio, do mercado, do momento em que a empresa está. Brief, contexto, concorrência, posicionamento. Só depois vem a execução. O resultado não é um arquivo. É uma entrega fundamentada, que o cliente consegue ler, entender e defender internamente. Não porque confiou no gosto de alguém. Porque o raciocínio foi explicado no caminho.</p>
+          <a href="#contato" class="btn btn-sm">
+            <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span class="btn-label">Conhecer a Rooker</span>
+            <span class="btn-circle"></span>
+            <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSO -->
+  <section class="process">
+    <div class="container">
+      <h2>Nada aqui sai sem passar pelas etapas certas. Não por protocolo. Porque é o processo que transforma intenção em resultado.</h2>
+      <img src="assets/metodo_desktop.svg" alt="Método Rooker" style="width:100%;display:block;" />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contato">
+    <div class="container">
+      <h2>Sua empresa cresceu.<br />Chegou a hora da marca contar essa história.</h2>
+      <p>Cada projeto começa com uma conversa. Sem orçamento na primeira linha, sem proposta automática. Antes de qualquer número, a Rooker precisa entender o que você construiu.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-sm" style="width:fit-content">
+          <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <span class="btn-label">Fale com a Rooker</span>
+          <span class="btn-circle"></span>
+          <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <p class="cta-whatsapp">Prefere uma troca rápida antes? <a href="#">Fale pelo WhatsApp.</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="assets/footer-logo.svg" class="footer-logo" alt="Rooker" />
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="#" class="btn-text" style="color:var(--white)">
+          Instagram
+          <img src="assets/arrow-up-right.svg" alt="" />
+        </a>
+        <a href="#" class="btn-text" style="color:var(--white)">
+          WhatsApp
+          <img src="assets/arrow-up-right.svg" alt="" />
+        </a>
+        <a href="#" class="btn-text" style="color:var(--white)">
+          Email
+          <img src="assets/arrow-up-right.svg" alt="" />
+        </a>
+      </div>
+      <span class="footer-copyright">©2026</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── TRAVELING LOGO ──────────────────────────────────────────
+    const nav        = document.getElementById('nav');
+    const heroWrap   = document.querySelector('.hero-logo-wrap');
+    const heroImg    = heroWrap.querySelector('img');
+
+    // Criar o logo viajante (position: fixed, cobre o original)
+    const travel = document.createElement('img');
+    travel.src = 'assets/logo_rooker_black.svg';
+    travel.alt = 'Rooker';
+    Object.assign(travel.style, {
+      position:       'fixed',
+      zIndex:         '200',
+      top:            '0',
+      left:           '0',
+      transformOrigin:'top left',
+      willChange:     'transform, width',
+      pointerEvents:  'none',
+    });
+    document.body.appendChild(travel);
+
+    // Esconde o img original (mantém o espaço no layout)
+    heroImg.style.opacity = '0';
+
+    // Destino: posição do logo no nav
+    const NAV_LOGO_H  = 20;   // altura do logo no nav
+    const NAV_LOGO_L  = 16;   // margem esquerda
+
+    let heroDocTop, heroDocLeft, heroW, heroH, navLogoTop;
+
+    function capture() {
+      const r       = heroImg.getBoundingClientRect();
+      heroDocTop    = r.top  + window.scrollY;
+      heroDocLeft   = r.left + window.scrollX;
+      heroW         = r.width;
+      heroH         = r.height;
+      const navH    = nav.getBoundingClientRect().height;
+      navLogoTop    = (navH - NAV_LOGO_H) / 2;   // centrado verticalmente no nav
+    }
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
+
+    const NAV_LOGO_W = 120;
+
+    // Progresso atual suavizado (segue o alvo com inércia)
+    let smoothP = 0;
+    let targetP = 0;
+
+    function calcTarget() {
+      if (!heroW) return;
+      const sy  = window.scrollY;
+      const end     = heroDocTop - navLogoTop;
+      const trigger = Math.max(0, end - 1400);
+      targetP = clamp((sy - trigger) / (end - trigger), 0, 1);
+    }
+
+    function renderLogo() {
+      if (!heroW) return;
+      const sy = window.scrollY;
+      const heroVpTop  = heroDocTop - sy;
+      const heroVpLeft = heroDocLeft;
+
+      const p     = smoothP;
+      const top   = lerp(heroVpTop,  navLogoTop, p);
+      const left  = lerp(heroVpLeft, NAV_LOGO_L, p);
+      const width = lerp(heroW,      NAV_LOGO_W, p);
+      const scale = width / heroW;
+
+      travel.style.width     = heroW + 'px';
+      travel.style.transform = `translate(${left - heroVpLeft}px, ${top - heroVpTop}px) scaleX(${scale}) scaleY(${scale})`;
+      travel.style.top       = heroVpTop  + 'px';
+      travel.style.left      = heroVpLeft + 'px';
+    }
+
+    // rAF loop: suaviza o progresso com lerp (ease natural)
+    (function animateLogo() {
+      calcTarget();
+      smoothP += (targetP - smoothP) * 0.06; // 0.06 = inércia suave ~1s
+      renderLogo();
+      requestAnimationFrame(animateLogo);
+    })();
+
+    window.addEventListener('resize', () => { capture(); });
+
+    function init() { capture(); }
+    if (document.readyState === 'complete') { init(); }
+    else { window.addEventListener('load', init); }
+
+    // ── CURSOR VER ──────────────────────────────────────────────
+    const verCursor = document.getElementById('ver-cursor');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Suaviza o movimento do cursor com lerp
+    (function animateCursor() {
+      cursorX += (mouseX - cursorX) * 0.12;
+      cursorY += (mouseY - cursorY) * 0.12;
+      verCursor.style.left = cursorX + 'px';
+      verCursor.style.top  = cursorY + 'px';
+      requestAnimationFrame(animateCursor);
+    })();
+
+    document.querySelectorAll('.case-item').forEach(item => {
+      item.addEventListener('mouseenter', () => verCursor.classList.add('active'));
+      item.addEventListener('mouseleave', () => verCursor.classList.remove('active'));
+    });
+
+    // Accordion services
+    function toggleService(id) {
+      const item = document.getElementById(id);
+      const isActive = item.classList.contains('active');
+      document.querySelectorAll('.service-item').forEach(el => el.classList.remove('active'));
+      if (!isActive) item.classList.add('active');
+    }
+
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animationPlayState = 'running';
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
