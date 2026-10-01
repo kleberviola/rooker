@@ -7,6 +7,8 @@
   <meta name="description" content="A Rooker alinha a imagem da sua empresa com o negócio que ela já se tornou. Branding e rebranding estratégico para empresas que cresceram e precisam que a marca reflita quem são hoje." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://rooker.com.br/" />
+  <link rel="icon" type="image/png" href="assets/favicon_rooker_black.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -51,6 +53,7 @@
       --bg: #fcfcfc;
       --max: 1200px;
       --pad: 16px;
+      --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     html {
@@ -91,31 +94,80 @@
       position: relative;
       overflow: hidden;
     }
-    .nav-avatar img {
+    .nav-avatar video {
       position: absolute;
-      height: auto;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      /* o fundo branco do vídeo some; só as formas pretas ficam */
+      mix-blend-mode: multiply;
+      pointer-events: none;
     }
+
+    /* ── NAV LINKS (fixos, com difference: pretos no claro, brancos no escuro) ── */
+    .nav-links {
+      position: fixed;
+      top: 16px;
+      right: calc(var(--pad) + 65px + 32px);
+      height: 52px;
+      z-index: 101;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+      mix-blend-mode: difference;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: -0.3px;
+      line-height: 1;
+      transition: opacity 0.3s ease;
+    }
+    .nav-links a:hover { opacity: 0.55; }
+    .nav-links a:focus-visible { outline: 1px solid #fff; outline-offset: 4px; }
 
     /* ── HERO ── */
     .hero {
-      padding-top: 84px;
-      overflow: hidden;
+      overflow-x: clip;   /* clip (não hidden) para não quebrar o position: sticky do vídeo */
     }
 
+    /* Logo ancorado na base da primeira tela; o vídeo começa logo abaixo da dobra */
     .hero-logo-wrap {
-      padding: 160px var(--pad) 0;
+      height: 100vh;
+      height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 var(--pad) 24px;
     }
     .hero-logo-wrap img {
       width: 100%;
       display: block;
     }
 
+    /* Vídeo: começa pequeno no centro e cresce até a tela cheia conforme o scroll */
+    .hero-video-track {
+      height: 200vh;
+    }
+    .hero-video-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+    }
     .hero-img {
-      margin: 120px var(--pad) 0;
-      width: calc(100% - 32px);
-      height: clamp(500px, 80vh, 900px);
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
+      transform: scale(0.35);
+      transform-origin: center center;
+      will-change: transform;
     }
 
     /* ── SECTIONS WRAPPER ── */
@@ -355,6 +407,30 @@
     /* ── CURSOR VER ── */
     .case-item { cursor: none; }
 
+    /* ── CURSOR: BOLINHA PRETA (só com mouse; nos cases vale o "VER") ── */
+    .has-dot-cursor,
+    .has-dot-cursor * { cursor: none !important; }
+
+    #dot-cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      /* branco + difference: fica preta sobre o claro e branca sobre o escuro */
+      background: #fff;
+      mix-blend-mode: difference;
+      pointer-events: none;
+      z-index: 10000;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1);
+      transition: opacity 0.25s ease,
+                  transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, top, left;
+    }
+    #dot-cursor.visible { opacity: 1; }
+    #dot-cursor.is-link { transform: translate(-50%, -50%) scale(1.8); }
+    #dot-cursor.is-hidden { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+
     #ver-cursor {
       position: fixed;
       top: 0; left: 0;
@@ -404,7 +480,14 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 32px;
+      margin-bottom: 16px;
+    }
+
+    .services-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.4;
+      margin-bottom: 40px;
     }
 
     .services h2 {
@@ -476,19 +559,28 @@
     }
 
     .about-rooker-grid {
+      position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      grid-template-columns: clamp(260px, 24vw, 420px) minmax(0, 1fr);
       gap: 64px;
       align-items: center;
     }
 
+    .about-rooker-number {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
     .about-rooker-img {
       width: 100%;
-      height: clamp(380px, 40vw, 560px);
+      height: auto;
+      aspect-ratio: 1100 / 1410;
       object-fit: cover;
-      object-position: top center;
       display: block;
     }
+
+    .about-rooker-content { max-width: 760px; }
 
     .about-rooker-content h2 {
       font-size: clamp(28px, 3.5vw, 48px);
@@ -505,10 +597,19 @@
       line-height: 1.4;
       margin-bottom: 32px;
     }
+    /* parágrafos colados, como na referência; o respiro fica antes do botão */
+    .about-rooker-content p:not(:last-of-type) { margin-bottom: 0; }
 
-    /* ── PROCESS ── */
+    /* ── PROCESSO ── */
     .process {
       padding: 0 0 160px;
+    }
+
+    .process-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
     }
 
     .process h2 {
@@ -516,181 +617,200 @@
       font-weight: 600;
       letter-spacing: -2.4px;
       line-height: 1.05;
-      max-width: 700px;
-      margin-bottom: 60px;
+      max-width: 560px;
     }
 
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      border: 1px solid var(--light-gray);
-      border-radius: 171.5px;
-      padding: 40px 24px;
-      position: relative;
-    }
-
-    .process-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 16px;
-      padding: 0 16px;
-      position: relative;
-    }
-
-    .process-step:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 20px;
-      bottom: 20px;
-      width: 1px;
-      background: var(--light-gray);
-    }
-
-    .step-circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .step-circle-gray { background: #e8e8e8; }
-    .step-circle-dark { background: var(--black); }
-
-    .step-line {
-      width: 1px;
-      height: 80px;
-      background: var(--light-gray);
-    }
-
-    .step-number-name {
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: -1.2px;
-      line-height: 1;
-    }
-
-    .step-desc {
-      font-size: 14px;
+    .process-desc {
+      font-size: 16px;
       color: var(--gray);
       line-height: 1.4;
-      max-width: 226px;
+      margin-bottom: 40px;
     }
 
-    /* ── METHOD INTERACTIVE ── */
-    .method-steps {
-      display: flex;
-      align-items: flex-start;
-      padding-bottom: 260px;
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
 
-    .method-step {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .process-card {
       position: relative;
-      cursor: pointer;
-    }
-
-    .method-step + .method-step {
-      margin-left: -10%;
-    }
-
-    .method-step:hover {
-      z-index: 2;
-    }
-
-    .method-circle {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: 50%;
+      aspect-ratio: 256 / 220;
+      padding: 16px;
       border: 1px solid var(--light-gray);
       background: var(--bg);
+      color: var(--black);
       display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                  border-color 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      cursor: default;
+      outline-offset: 2px;
+      transition: background 0.7s var(--ease-soft), border-color 0.7s var(--ease-soft), color 0.7s var(--ease-soft);
     }
-
-    .method-step:hover .method-circle {
+    .process-card:hover,
+    .process-card:focus-visible {
       background: var(--black);
       border-color: var(--black);
-    }
-
-    .method-step-name {
-      font-size: clamp(14px, 1.6vw, 22px);
-      font-weight: 600;
-      letter-spacing: -0.8px;
-      color: var(--black);
-      transition: color 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      pointer-events: none;
-    }
-
-    .method-step:hover .method-step-name {
       color: var(--white);
     }
 
-    .method-reveal {
+    /* formas geométricas (mesma linguagem do logo) */
+    .process-shapes {
       position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 16px;
+      left: 16px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      pointer-events: none;
-      width: 200px;
+      align-items: flex-start;
+    }
+    .process-shapes svg {
+      display: block;
+      width: 73px;
+      height: 73px;
+      overflow: visible;
+      fill: transparent;
+      stroke: var(--light-gray);
+      stroke-width: 1;
+      transition: fill 0.7s var(--ease-soft), stroke 0.7s var(--ease-soft);
+    }
+    .process-shapes svg.half { width: 37px; }
+    .process-card:hover .process-shapes svg,
+    .process-card:focus-visible .process-shapes svg {
+      fill: var(--white);
+      stroke: var(--white);
     }
 
-    .method-line {
-      width: 1px;
-      height: 0;
-      background: var(--gray);
-      transition: height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    /* botão + / − (SVGs da marca; um troca pelo outro com crossfade) */
+    .process-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 24px;
+      height: 24px;
     }
-
-    .method-step:hover .method-line {
-      height: 80px;
+    .process-toggle img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
     }
-
-    .method-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--gray);
+    .process-toggle .ico-minus { opacity: 0; transform: rotate(-90deg) scale(0.8); }
+    .process-card:hover .process-toggle .ico-plus,
+    .process-card:focus-visible .process-toggle .ico-plus {
       opacity: 0;
-      transform: scale(0);
-      transition: opacity 0.2s 0.4s, transform 0.2s 0.4s;
-      flex-shrink: 0;
+      transform: rotate(90deg) scale(0.8);
     }
-
-    .method-step:hover .method-dot {
+    .process-card:hover .process-toggle .ico-minus,
+    .process-card:focus-visible .process-toggle .ico-minus {
       opacity: 1;
-      transform: scale(1);
+      transform: rotate(0deg) scale(1);
     }
 
-    .method-desc {
-      margin-top: 14px;
-      font-size: 14px;
-      color: var(--gray);
-      line-height: 1.5;
-      text-align: center;
+    /* nome e descrição ocupam o mesmo lugar; um troca pelo outro no hover */
+    .process-text {
+      position: relative;
+      min-height: 4.8em;
+      display: flex;
+      align-items: flex-end;
+    }
+    .process-name,
+    .process-card-desc {
+      transition: opacity 0.6s var(--ease-soft), transform 0.7s var(--ease-soft);
+    }
+    .process-name {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+    .process-card-desc {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      font-size: 16px;
+      line-height: 1.25;
+      letter-spacing: -0.3px;
       opacity: 0;
-      transform: translateY(-6px);
-      transition: opacity 0.35s 0.5s, transform 0.35s 0.5s;
+      transform: translateY(10px);
     }
-
-    .method-step:hover .method-desc {
+    .process-card:hover .process-name,
+    .process-card:focus-visible .process-name {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    .process-card:hover .process-card-desc,
+    .process-card:focus-visible .process-card-desc {
       opacity: 1;
       transform: translateY(0);
+      transition-delay: 0.12s;
     }
+
+    /* ── POR QUE ROOKER ── */
+    .why {
+      padding: 0 0 160px;
+    }
+
+    .why-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+
+    .why h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+    }
+
+    .why-item {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .why-item:first-child { padding-top: 0; }
+    .why-item:last-of-type { padding-bottom: 0; border-bottom: 0; }
+
+    /* duas colunas: forma vazada à esquerda (fixa enquanto a lista rola) + lista à direita */
+    .why-grid {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+    }
+    .why-art {
+      position: sticky;
+      top: 120px;
+      padding-right: 64px;
+    }
+    .why-art svg {
+      display: block;
+      /* largura flexível: cresce com a tela, sem ficar pequena nem gigante */
+      width: clamp(260px, 34vw, 600px);
+      height: auto;
+      fill: none;
+      stroke: var(--light-gray);
+      stroke-width: 1;
+      overflow: visible;
+    }
+
+    .why-item h3 {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .why-item p {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+
+    .why .btn { margin-top: 40px; width: fit-content; }
 
     /* ── BLOG ── */
     .blog {
@@ -767,16 +887,6 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-    }
-
-    .cta-whatsapp {
-      font-size: 16px;
-      color: var(--black);
-      line-height: 1.4;
-    }
-    .cta-whatsapp a {
-      color: var(--black);
-      text-underline-position: from-font;
     }
 
     /* ── FOOTER ── */
@@ -859,15 +969,20 @@
       .cases-header { flex-direction: column; gap: 20px; }
       .cases-header-right { align-items: flex-start; }
       .cases-desc { text-align: left; }
-      .process-steps { grid-template-columns: 1fr 1fr; border-radius: 24px; }
-      .process-step:not(:last-child)::after { display: none; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
+      .why-art { position: static; padding-right: 0; }
+      .why-art svg { width: min(100%, clamp(220px, 55vw, 360px)); }
       .about-rooker-grid { grid-template-columns: 1fr; }
+      .about-rooker-img { max-width: 420px; }
       .blog-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 600px) {
+      .nav-links { gap: 18px; right: calc(var(--pad) + 65px + 20px); }
+      .nav-links a { font-size: 14px; }
       .cases-grid { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
       .col-1-top, .col-1-bottom, .col-2-top, .col-2-bottom, .col-3-top, .col-3-bottom { height: 280px; }
     }
   </style>
@@ -875,28 +990,35 @@
 <body>
 
   <div id="ver-cursor">VER</div>
+  <div id="dot-cursor" aria-hidden="true"></div>
 
   <!-- NAV -->
   <nav id="nav">
     <div></div>
     <div class="nav-avatar">
-      <img src="assets/avatar-v1.svg" alt="" style="left:0;top:0;width:40%;height:50%" />
-      <img src="assets/avatar-v2.svg" alt="" style="left:40%;top:0;width:20%;height:50%" />
-      <img src="assets/avatar-v3.svg" alt="" style="left:60%;top:0;width:40%;height:50%" />
-      <img src="assets/avatar-v4.svg" alt="" style="left:20%;top:50%;width:40%;height:50%" />
-      <img src="assets/avatar-v5.svg" alt="" style="left:0;top:50%;width:20%;height:50%" />
-      <img src="assets/avatar-v4.svg" alt="" style="left:60%;top:50%;width:40%;height:50%" />
+      <video id="nav-avatar-video" src="assets/avatar.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
     </div>
   </nav>
 
+  <!-- NAV LINKS -->
+  <div class="nav-links" role="navigation" aria-label="Principal">
+    <a href="#topo">Home</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </div>
+
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="topo">
     <div class="hero-logo-wrap">
       <img src="assets/logo_rooker_black.svg" alt="Rooker" />
     </div>
-    <video class="hero-img" autoplay muted loop playsinline>
-      <source src="assets/video_rooker.mp4" type="video/mp4" />
-    </video>
+    <div class="hero-video-track">
+      <div class="hero-video-sticky">
+        <video class="hero-img" autoplay muted loop playsinline>
+          <source src="assets/video_rooker.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
   </section>
 
   <!-- ABOUT — SECTION 01 -->
@@ -906,11 +1028,11 @@
         <div></div>
         <span class="section-number">/01</span>
       </div>
-      <h1 data-reveal>A Rooker alinha a imagem da sua empresa com o negócio que ela já se tornou.</h1>
+      <h1 data-reveal>Marca à altura do negócio que você construiu.</h1>
       <div class="about-body">
         <div class="about-text" data-reveal data-delay="2">
-          <p>Empresas crescem, mudam de cliente, mudam de mercado. A marca, quase sempre, fica parada no tempo. O cliente certo não reconhece o que você se tornou. O errado continua chegando, atraído pela imagem antiga.</p>
-          <p>A Rooker existe para resolver esse desencontro. Não com atualização estética. Com correção de rota.</p>
+          <p>Negócio muda todo dia. Marca muda de tempos em tempos. Essa distância é normal, e chega uma hora em que ela começa a aparecer para o mercado antes de aparecer para você.</p>
+          <p>A Rooker fecha essa distância. Não com atualização estética. Com construção fundamentada.</p>
         </div>
         <div data-reveal data-delay="3">
           <a href="#contato" class="btn">
@@ -933,7 +1055,7 @@
           <span class="section-number">/02</span>
         </div>
         <div class="cases-header-bottom">
-          <p class="cases-desc">Uma seleção criteriosa de projetos que refletem nosso compromisso com a simplicidade e o design estratégico.</p>
+          <p class="cases-desc">Setores diferentes, portes diferentes, o mesmo método. Cada projeto começou por uma conversa sobre o negócio, não por um pedido de identidade visual.</p>
           <a href="#" class="btn btn-sm">
             <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             <span class="btn-label">Ver todos os projetos</span>
@@ -975,6 +1097,7 @@
         <h2>Serviços</h2>
         <span class="section-number">/03</span>
       </div>
+      <p class="services-desc" data-reveal>Quatro caminhos, conforme o momento do negócio.</p>
 
       <div class="service-item active" id="svc-branding" data-reveal data-delay="1">
         <div class="service-toggle" onclick="toggleService('svc-branding')">
@@ -982,7 +1105,7 @@
           <img src="assets/plus-icon.svg" class="service-plus" alt="" />
         </div>
         <div class="service-body">
-          Construção de identidade de marca do zero. Posicionamento, naming, identidade visual e sistema de aplicação. Para empresas que ainda não têm uma marca clara — ou que nunca tiveram.
+          Para quem está construindo agora e quer começar com estrutura. Diagnóstico, posicionamento, identidade visual completa e sistema de aplicação.
         </div>
       </div>
 
@@ -992,22 +1115,90 @@
           <img src="assets/plus-icon.svg" class="service-plus" alt="" />
         </div>
         <div class="service-body">
-          Revisão estratégica e visual de marcas existentes. Para empresas que cresceram, mudaram de público ou de mercado, e precisam que a marca reflita quem elas são hoje — não quem eram quando começaram.
+          Para a empresa que mudou de mercado, de porte ou de ambição. Novo posicionamento, nova identidade e plano de transição para a marca acompanhar o movimento.
+        </div>
+      </div>
+
+      <div class="service-item" id="svc-evolucao" data-reveal data-delay="2">
+        <div class="service-toggle" onclick="toggleService('svc-evolucao')">
+          <span class="service-name">Evolução de marca</span>
+          <img src="assets/plus-icon.svg" class="service-plus" alt="" />
+        </div>
+        <div class="service-body">
+          Para a marca que acertou no fundamento e quer subir o padrão da expressão. Atualização da identidade sem mexer no posicionamento do negócio.
+        </div>
+      </div>
+
+      <div class="service-item" id="svc-site" data-reveal data-delay="2">
+        <div class="service-toggle" onclick="toggleService('svc-site')">
+          <span class="service-name">Site e landing page</span>
+          <img src="assets/plus-icon.svg" class="service-plus" alt="" />
+        </div>
+        <div class="service-body">
+          Presença digital no mesmo padrão da marca. Para projetos da Rooker e para empresas que chegam com a marca já construída.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSO — SECTION 04 -->
+  <section class="process">
+    <div class="container">
+      <div class="process-head" data-reveal>
+        <h2>Nada sai daqui sem passar pelas etapas certas.</h2>
+        <span class="section-number">/04</span>
+      </div>
+      <p class="process-desc" data-reveal>Quatro fases, sempre nessa ordem.</p>
+
+      <div class="process-grid">
+        <div class="process-card" tabindex="0" data-reveal data-delay="1">
+          <div class="process-shapes"><svg class="half" viewBox="0 0 37 73" aria-hidden="true"><path d="M36.5 0.5 A36 36 0 0 0 36.5 72.5 Z"/></svg></div>
+          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" /><img class="ico-minus" src="assets/process-minus.svg" alt="" /></span>
+          <div class="process-text">
+            <span class="process-name">01. Escuta</span>
+            <p class="process-card-desc">Diagnóstico do negócio antes de qualquer proposta visual.</p>
+          </div>
+        </div>
+        <div class="process-card" tabindex="0" data-reveal data-delay="2">
+          <div class="process-shapes"><svg class="half" viewBox="0 0 37 73" aria-hidden="true"><path d="M36.5 0.5 A36 36 0 0 0 36.5 72.5 Z"/></svg><svg viewBox="0 0 73 73" aria-hidden="true"><circle cx="36.5" cy="36.5" r="36"/></svg></div>
+          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" /><img class="ico-minus" src="assets/process-minus.svg" alt="" /></span>
+          <div class="process-text">
+            <span class="process-name">02. Fundamento</span>
+            <p class="process-card-desc">Posicionamento e as decisões que sustentam tudo que vem depois.</p>
+          </div>
+        </div>
+        <div class="process-card" tabindex="0" data-reveal data-delay="3">
+          <div class="process-shapes"><svg viewBox="0 0 73 73" aria-hidden="true"><circle cx="36.5" cy="36.5" r="36"/></svg></div>
+          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" /><img class="ico-minus" src="assets/process-minus.svg" alt="" /></span>
+          <div class="process-text">
+            <span class="process-name">03. Forma</span>
+            <p class="process-card-desc">Identidade visual e verbal construída a partir da decisão.</p>
+          </div>
+        </div>
+        <div class="process-card" tabindex="0" data-reveal data-delay="4">
+          <div class="process-shapes"><svg viewBox="0 0 73 73" aria-hidden="true"><circle cx="36.5" cy="36.5" r="36"/></svg><svg viewBox="0 0 73 73" aria-hidden="true"><circle cx="36.5" cy="36.5" r="36"/></svg></div>
+          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" /><img class="ico-minus" src="assets/process-minus.svg" alt="" /></span>
+          <div class="process-text">
+            <span class="process-name">04. Entrega</span>
+            <p class="process-card-desc">Manual, arquivos e o porquê de cada escolha.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- SOBRE A ROOKER -->
-  <section class="about-rooker">
+  <section class="about-rooker" id="sobre">
     <div class="container">
       <div class="about-rooker-grid">
+        <span class="section-number about-rooker-number">/05</span>
         <div data-reveal="left">
-          <img src="assets/portfolio-5.jpg" class="about-rooker-img" alt="Rooker — processo criativo" />
+          <img src="assets/kleber.jpg" class="about-rooker-img" alt="Kleber Viola, fundador da Rooker" width="1100" height="1410" loading="lazy" />
         </div>
         <div class="about-rooker-content" data-reveal="right" data-delay="1">
           <h2>A Rooker não executa briefings. Entrega direção, com o argumento por trás de cada decisão.</h2>
-          <p>Isso começa antes do primeiro traço. Entendimento do negócio, do mercado, do momento em que a empresa está. Brief, contexto, concorrência, posicionamento. Só depois vem a execução. O resultado não é um arquivo. É uma entrega fundamentada, que o cliente consegue ler, entender e defender internamente. Não porque confiou no gosto de alguém. Porque o raciocínio foi explicado no caminho.</p>
+          <p>Vinte e quatro anos na área criativa, entre agências e estúdios, com passagem por estúdio internacional atendendo marcas globais. Marca é onde esse caminho chegou, não onde ele começou. O critério estético e o método que a Rooker aplica vêm dessa trajetória, e chegam a projetos que normalmente não teriam acesso a esse nível.</p>
+          <p>O cliente não recebe um arquivo. Recebe a decisão e o porquê. Cada escolha tem fundamento explicável, de uma cor a um espaçamento. Estética o mercado tem de sobra. Argumento, não.</p>
           <a href="#contato" class="btn btn-sm">
             <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             <span class="btn-label">Conhecer a Rooker</span>
@@ -1019,56 +1210,48 @@
     </div>
   </section>
 
-  <!-- PROCESSO -->
-  <section class="process">
+  <!-- POR QUE ROOKER — SECTION 06 -->
+  <section class="why">
     <div class="container">
-      <h2 data-reveal>Nada aqui sai sem passar pelas etapas certas. Não por protocolo. Porque é o processo que transforma intenção em resultado.</h2>
-      <div class="method-steps" data-reveal data-delay="2">
-
-        <div class="method-step">
-          <div class="method-circle">
-            <span class="method-step-name">01.Escuta</span>
-          </div>
-          <div class="method-reveal">
-            <div class="method-line"></div>
-            <div class="method-dot"></div>
-            <p class="method-desc">Entender o negócio antes de qualquer coisa. Quem é, para quem é, onde quer chegar.</p>
-          </div>
+      <div class="why-head" data-reveal>
+        <h2>Por que Rooker</h2>
+        <span class="section-number">/06</span>
+      </div>
+      <div class="why-grid">
+        <div class="why-art" data-reveal>
+          <svg viewBox="0 0 379 302" aria-hidden="true" id="why-shapes">
+            <g data-shape="r1c1" transform="translate(0 0)"><circle cx="75" cy="75" r="74.5"/></g>
+            <g data-shape="r1h" transform="translate(152 0)"><path d="M75 .5A74.5 74.5 0 0 0 75 149.5Z"/></g>
+            <g data-shape="r1c2" transform="translate(229 0)"><circle cx="75" cy="75" r="74.5"/></g>
+            <g data-shape="r2h" transform="translate(0 152)"><path d="M75 .5A74.5 74.5 0 0 0 75 149.5Z"/></g>
+            <g data-shape="r2c1" transform="translate(77 152)"><circle cx="75" cy="75" r="74.5"/></g>
+            <g data-shape="r2c2" transform="translate(229 152)"><circle cx="75" cy="75" r="74.5"/></g>
+          </svg>
         </div>
-
-        <div class="method-step">
-          <div class="method-circle">
-            <span class="method-step-name">02.Fundamento</span>
+        <div class="why-list">
+          <div class="why-item" data-reveal data-delay="1">
+            <h3>Padrão internacional</h3>
+            <p>O critério vem de estúdio internacional atendendo marcas globais, aplicado<br />a projetos que normalmente não teriam acesso a esse nível.</p>
           </div>
-          <div class="method-reveal">
-            <div class="method-line"></div>
-            <div class="method-dot"></div>
-            <p class="method-desc">Posicionamento, público, diferenciais. A base que vai orientar cada decisão e transformar o briefing em argumento.</p>
+          <div class="why-item" data-reveal data-delay="2">
+            <h3>Atenção integral</h3>
+            <p>Quem diagnostica é quem entrega.<br />O fundador conduz cada projeto do início ao fim.</p>
           </div>
+          <div class="why-item" data-reveal data-delay="3">
+            <h3>Diagnóstico antes de orçamento</h3>
+            <p>Toda proposta abre com o que a Rooker entendeu do seu negócio.<br />Você vê pensamento antes de ver preço.</p>
+          </div>
+          <div class="why-item" data-reveal data-delay="3">
+            <h3>Construção pensada</h3>
+            <p>Cada decisão é tomada pensando no negócio que você<br />vai ter, não na tendência que vai passar.</p>
+          </div>
+          <a href="#contato" class="btn btn-sm" data-reveal>
+            <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span class="btn-label">Conhecer a Rooker</span>
+            <span class="btn-circle"></span>
+            <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </div>
-
-        <div class="method-step">
-          <div class="method-circle">
-            <span class="method-step-name">03.Forma</span>
-          </div>
-          <div class="method-reveal">
-            <div class="method-line"></div>
-            <div class="method-dot"></div>
-            <p class="method-desc">Design como consequência do que foi construído antes. Cada elemento existe por uma razão.</p>
-          </div>
-        </div>
-
-        <div class="method-step">
-          <div class="method-circle">
-            <span class="method-step-name">04.Entrega</span>
-          </div>
-          <div class="method-reveal">
-            <div class="method-line"></div>
-            <div class="method-dot"></div>
-            <p class="method-desc">Arquivos organizados, manual de uso e orientação de aplicação. A marca sai pronta para trabalhar.</p>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -1076,16 +1259,15 @@
   <!-- CTA -->
   <section class="cta" id="contato">
     <div class="container">
-      <h2 data-reveal>Sua empresa cresceu.<br />Chegou a hora da marca contar essa história.</h2>
-      <p>Cada projeto começa com uma conversa. Sem orçamento na primeira linha, sem proposta automática. Antes de qualquer número, a Rooker precisa entender o que você construiu.</p>
+      <h2 data-reveal>O negócio já mudou.<br />Agora é a vez da marca.</h2>
+      <p>Cada projeto começa por uma conversa. Sem compromisso e sem orçamento na primeira linha. O objetivo dela é entender onde seu negócio está e se faz sentido seguir juntos.</p>
       <div class="cta-actions">
         <a href="#" class="btn btn-sm" style="width:fit-content">
           <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          <span class="btn-label">Fale com a Rooker</span>
+          <span class="btn-label">Marcar uma conversa</span>
           <span class="btn-circle"></span>
           <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <p class="cta-whatsapp">Prefere uma troca rápida antes? <a href="#">Fale pelo WhatsApp.</a></p>
       </div>
     </div>
   </section>
@@ -1143,9 +1325,7 @@
     const heroImg    = heroWrap.querySelector('img');
 
     // Criar o logo viajante (position: fixed, cobre o original)
-    const travel = document.createElement('img');
-    travel.src = 'assets/logo_rooker_black.svg';
-    travel.alt = 'Rooker';
+    const travel = document.createElement('div');
     Object.assign(travel.style, {
       position:       'fixed',
       zIndex:         '200',
@@ -1155,7 +1335,193 @@
       willChange:     'transform, width',
       pointerEvents:  'none',
     });
+    const travelImg = document.createElement('img');
+    travelImg.src = 'assets/logo_rooker_black.svg';
+    travelImg.alt = 'Rooker';
+    Object.assign(travelImg.style, { width: '100%', display: 'block' });
+    travel.appendChild(travelImg);
     document.body.appendChild(travel);
+
+    // ── BLUR PROGRESSIVO NO HOVER DO LOGO (WebGL) ───────────────
+    // Canvas sobre o logo viajante; só aparece enquanto o blur está ativo
+    const BLUR_PAD   = 0.3;    // margem do canvas (× altura do logo) para o blur não cortar
+    const BLUR_SIGMA = 0.075;  // intensidade máxima do blur (× altura do logo)
+    const blurCanvas = document.createElement('canvas');
+    Object.assign(blurCanvas.style, { position: 'absolute', display: 'none' });
+    travel.appendChild(blurCanvas);
+
+    const logoBlur = (() => {
+      const gl = blurCanvas.getContext('webgl2', { premultipliedAlpha: true, antialias: false });
+      if (!gl) return null;
+
+      const VERT = `#version 300 es
+        in vec2 aPos;
+        out vec2 vUv;
+        void main() { vUv = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }`;
+
+      const FRAG = `#version 300 es
+        precision highp float;
+        in vec2 vUv;
+        out vec4 fragColor;
+        uniform sampler2D uTex;      // entrada deste passe
+        uniform sampler2D uSharp;    // logo original (nítido)
+        uniform vec2  uRes;          // tamanho do canvas em px
+        uniform vec2  uDir;          // (1,0) horizontal · (0,1) vertical
+        uniform float uLine;         // linha onde o blur começa (uv.y, 0 = topo)
+        uniform float uRange;        // distância até o blur máximo (uv.y)
+        uniform float uSigma;        // sigma máximo em px
+        uniform float uFinal;        // 1.0 no último passe
+        const int TAPS = 14;
+
+        float sigmaAt(float y) {
+          float t = clamp((y - uLine) / uRange, 0.0, 1.0);
+          return uSigma * t * t;
+        }
+
+        void main() {
+          float sigma = sigmaAt(vUv.y);
+          vec4 sharp = texture(uSharp, vUv);
+          if (sigma < 0.05) { fragColor = uFinal > 0.5 ? sharp : texture(uTex, vUv); return; }
+
+          float stepPx = max(sigma * 3.0 / float(TAPS), 0.5);
+          float lod    = log2(max(stepPx, 1.0));
+          vec4  acc    = vec4(0.0);
+          float wSum   = 0.0;
+          for (int i = -TAPS; i <= TAPS; i++) {
+            float o = float(i) * stepPx;
+            float w = exp(-0.5 * (o * o) / (sigma * sigma));
+            acc  += textureLod(uTex, vUv + uDir * o / uRes, lod) * w;
+            wSum += w;
+          }
+          vec4 blurred = acc / wSum;
+          // mantém as bordas nítidas onde o blur ainda é sub-pixel
+          fragColor = uFinal > 0.5 ? mix(sharp, blurred, smoothstep(0.05, 1.5, sigma)) : blurred;
+        }`;
+
+      function compile(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
+      }
+      const vs = compile(gl.VERTEX_SHADER, VERT);
+      const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+      if (!vs || !fs) return null;
+      const prog = gl.createProgram();
+      gl.attachShader(prog, vs);
+      gl.attachShader(prog, fs);
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+      gl.useProgram(prog);
+
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+      const aPos = gl.getAttribLocation(prog, 'aPos');
+      gl.enableVertexAttribArray(aPos);
+      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+      const U = {};
+      ['uTex', 'uSharp', 'uRes', 'uDir', 'uLine', 'uRange', 'uSigma', 'uFinal']
+        .forEach(n => { U[n] = gl.getUniformLocation(prog, n); });
+
+      function makeTex() {
+        const t = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, t);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        return t;
+      }
+      const sharpTex = makeTex();
+      const passTex  = makeTex();
+      const fbo      = gl.createFramebuffer();
+      const src2d    = document.createElement('canvas');
+      let ready = false, dpr = 1, padPx = 0, logoHPx = 0;
+
+      // Redesenha o logo na textura (chamar no load e no resize)
+      function resize(w, h) {
+        if (!w || !h || !travelImg.complete || !travelImg.naturalWidth) { ready = false; return; }
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const pad = Math.round(h * BLUR_PAD);
+        // limita ao tamanho máximo de textura da GPU
+        const maxTex = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+        if ((w + pad * 2) * dpr > maxTex) dpr = maxTex / (w + pad * 2);
+        const cw = Math.round((w + pad * 2) * dpr);
+        const ch = Math.round((h + pad * 2) * dpr);
+        padPx   = pad * dpr;
+        logoHPx = h * dpr;
+
+        blurCanvas.width  = src2d.width  = cw;
+        blurCanvas.height = src2d.height = ch;
+        Object.assign(blurCanvas.style, {
+          left: -pad + 'px', top: -pad + 'px',
+          width: (w + pad * 2) + 'px', height: (h + pad * 2) + 'px',
+        });
+
+        const ctx = src2d.getContext('2d');
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.drawImage(travelImg, padPx, padPx, w * dpr, h * dpr);
+
+        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.bindTexture(gl.TEXTURE_2D, sharpTex);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src2d);
+        gl.generateMipmap(gl.TEXTURE_2D);
+
+        gl.bindTexture(gl.TEXTURE_2D, passTex);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, cw, ch, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, passTex, 0);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.viewport(0, 0, cw, ch);
+        ready = true;
+      }
+
+      // strength: 0–1 · line: onde o blur começa (0 = topo do logo, 1 = base)
+      function draw(strength, line) {
+        if (!ready) return false;
+        const ch = blurCanvas.height;
+        // vUv.y cresce para cima; o shader trabalha com 0 = topo
+        gl.uniform2f(U.uRes, blurCanvas.width, ch);
+        gl.uniform1f(U.uLine, 1 - (padPx + line * logoHPx) / ch);
+        gl.uniform1f(U.uRange, -(logoHPx * 1.1) / ch);
+        gl.uniform1f(U.uSigma, strength * BLUR_SIGMA * logoHPx);
+        gl.uniform1i(U.uTex, 0);
+        gl.uniform1i(U.uSharp, 1);
+        gl.activeTexture(gl.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, sharpTex);
+        gl.activeTexture(gl.TEXTURE0);
+
+        // passe 1: horizontal → FBO
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.bindTexture(gl.TEXTURE_2D, sharpTex);
+        gl.uniform2f(U.uDir, 1, 0);
+        gl.uniform1f(U.uFinal, 0);
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+        // passe 2: vertical → tela
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.bindTexture(gl.TEXTURE_2D, passTex);
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.uniform2f(U.uDir, 0, 1);
+        gl.uniform1f(U.uFinal, 1);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        return true;
+      }
+
+      return { resize, draw };
+    })();
+
+    // Estado do hover (suavizado no globalRAF)
+    let blurStrength = 0, blurLine = 0.5, blurShown = false;
+    let hasMouse = false;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduceMotion.matches) document.getElementById('nav-avatar-video').pause();
 
     // Esconde o img original (mantém o espaço no layout)
     heroImg.style.opacity = '0';
@@ -1174,6 +1540,7 @@
       heroH         = r.height;
       const navH    = nav.getBoundingClientRect().height;
       navLogoTop    = (navH - NAV_LOGO_H) / 2;   // centrado verticalmente no nav
+      if (logoBlur) logoBlur.resize(heroW, heroH);
     }
 
     function lerp(a, b, t) { return a + (b - a) * t; }
@@ -1225,7 +1592,28 @@
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      hasMouse = true;
     });
+    document.documentElement.addEventListener('mouseleave', () => { hasMouse = false; });
+
+    // ── CURSOR BOLINHA PRETA ────────────────────────────────────
+    // Só em dispositivos com mouse; o "VER" dos cases continua valendo.
+    const dotCursor = document.getElementById('dot-cursor');
+    const useDot = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let dotX = 0, dotY = 0, dotReady = false;
+
+    if (useDot) {
+      document.documentElement.classList.add('has-dot-cursor');
+
+      document.addEventListener('mousemove', (e) => {
+        if (!dotReady) { dotX = e.clientX; dotY = e.clientY; dotReady = true; }
+        dotCursor.classList.add('visible');
+        dotCursor.classList.toggle('is-hidden', !!e.target.closest('.case-item'));
+        dotCursor.classList.toggle('is-link', !!e.target.closest('a, button, .service-toggle, .process-card'));
+      });
+      document.documentElement.addEventListener('mouseleave', () => dotCursor.classList.remove('visible'));
+      document.documentElement.addEventListener('mouseenter', () => { if (dotReady) dotCursor.classList.add('visible'); });
+    }
 
     // cursor animado no globalRAF
 
@@ -1260,18 +1648,67 @@
     }, { threshold: 0.15 });
     document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-    // ── PARALLAX HERO VIDEO ─────────────────────────────────────
-    const heroVideo = document.querySelector('.hero-img');
-    window.addEventListener('scroll', () => {
-      const sy = window.scrollY;
-      if (heroVideo && sy < window.innerHeight * 2) {
-        heroVideo.style.transform = `translateY(-${sy * 0.2}px)`;
-      }
-    }, { passive: true });
+    // ── FORMAS DO "POR QUE ROOKER": TROCAM DE LUGAR NO SCROLL (só na horizontal) ──
+    const whySection = document.querySelector('.why');
+    const whyShapes  = {};
+    document.querySelectorAll('#why-shapes [data-shape]').forEach(g => { whyShapes[g.dataset.shape] = g; });
+    // posição (slot 0, 1 ou 2) do meio-círculo em cada fileira, em cada etapa
+    const WHY_HALF_SLOTS = { r1: [1, 0, 2], r2: [0, 2, 1] };
+    const WHY_HALF_X = [0, 152, 304];
+    const whyC1X = slot => (slot === 0 ? 77 : 0);
+    const whyC2X = slot => (slot === 2 ? 152 : 229);
+    let whyStage = -1;
+
+    function whyLayout(row, stage) {
+      const slot = WHY_HALF_SLOTS[row][stage];
+      return { h: WHY_HALF_X[slot], c1: whyC1X(slot), c2: whyC2X(slot) };
+    }
+
+    // troca seca de posição: sem deslizar, só muda de formação em cada ponto do scroll
+    function updateWhyShapes() {
+      if (!whySection || !whyShapes.r1h) return;
+      const vh = window.innerHeight;
+      const r  = whySection.getBoundingClientRect();
+      const p  = (vh - r.top) / (vh + r.height);          // 0 ao entrar, 1 ao sair
+      const pp = clamp((p - 0.12) / 0.6, 0, 1);
+      const stage = reduceMotion.matches ? 0 : (pp < 1 / 3 ? 0 : pp < 2 / 3 ? 1 : 2);
+      if (stage === whyStage) return;
+      whyStage = stage;
+      [['r1', 0], ['r2', 152]].forEach(([row, y]) => {
+        const L = whyLayout(row, stage);
+        ['h', 'c1', 'c2'].forEach(k => {
+          whyShapes[row + k].setAttribute('transform', `translate(${L[k]} ${y})`);
+        });
+      });
+    }
+
+    // ── VÍDEO DO HERO: CRESCE ATÉ A TELA CHEIA NO SCROLL ────────
+    const heroVideo  = document.querySelector('.hero-img');
+    const videoTrack = document.querySelector('.hero-video-track');
+    const VIDEO_SCALE_START = 0.35;
+    let videoScale = -1;
+
+    function updateHeroVideo() {
+      if (!heroVideo || !videoTrack) return;
+      const vh    = window.innerHeight;
+      const r     = videoTrack.getBoundingClientRect();
+      // começa quando o vídeo desponta na base da tela e chega a 100%
+      // um pouco antes do fim do trecho fixo (fica um instante em tela cheia)
+      const start = vh * 0.7;
+      const end   = -(r.height - vh) * 0.6;
+      const t     = clamp((start - r.top) / (start - end), 0, 1);
+      const eased = t * t * (3 - 2 * t);
+      const scale = reduceMotion.matches ? 1 : lerp(VIDEO_SCALE_START, 1, eased);
+      if (Math.abs(scale - videoScale) < 0.0005) return;
+      videoScale = scale;
+      heroVideo.style.transform = `scale(${scale})`;
+    }
 
     // rAF global: lenis + logo + cursor
     function globalRAF(time) {
       lenis.raf(time);
+      updateHeroVideo();
+      updateWhyShapes();
       // Logo animation via scroll nativo
       if (heroW) {
         const sy = window.scrollY;
@@ -1290,6 +1727,26 @@
         travel.style.transform = `translate(${left - heroVpLeft}px, ${top - heroVpTop}px) scaleX(${scale}) scaleY(${scale})`;
         travel.style.top       = heroVpTop  + 'px';
         travel.style.left      = heroVpLeft + 'px';
+
+        // Blur progressivo: só com o logo em tamanho de hero e o mouse em cima
+        if (logoBlur) {
+          const over = hasMouse && !reduceMotion.matches && p < 0.02 &&
+            mouseX >= heroVpLeft && mouseX <= heroVpLeft + heroW &&
+            mouseY >= heroVpTop  && mouseY <= heroVpTop  + heroH;
+          // some mais rápido quando o logo começa a viajar para o nav
+          blurStrength += ((over ? 1 : 0) - blurStrength) * (over ? 0.08 : p < 0.02 ? 0.06 : 0.25);
+          if (over) {
+            // o blur nasce um pouco acima do cursor e cresce até a base do logo
+            const lineTarget = clamp((mouseY - heroVpTop) / heroH, 0, 1) * 0.75 - 0.2;
+            blurLine += (lineTarget - blurLine) * 0.1;
+          }
+          const show = blurStrength > 0.004 && logoBlur.draw(blurStrength, blurLine);
+          if (show !== blurShown) {
+            blurShown = show;
+            blurCanvas.style.display = show ? 'block' : 'none';
+            travelImg.style.opacity  = show ? '0' : '1';
+          }
+        }
       }
 
       // Cursor
@@ -1297,6 +1754,13 @@
       cursorY += (mouseY - cursorY) * 0.12;
       verCursor.style.left = cursorX + 'px';
       verCursor.style.top  = cursorY + 'px';
+
+      if (useDot && dotReady) {
+        dotX += (mouseX - dotX) * 0.35;
+        dotY += (mouseY - dotY) * 0.35;
+        dotCursor.style.left = dotX + 'px';
+        dotCursor.style.top  = dotY + 'px';
+      }
 
       requestAnimationFrame(globalRAF);
     }
