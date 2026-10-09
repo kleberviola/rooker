@@ -101,8 +101,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      /* o fundo branco do vídeo some; só as formas pretas ficam */
-      mix-blend-mode: multiply;
       pointer-events: none;
     }
 
@@ -378,6 +376,7 @@
     .case-item:nth-child(3) { grid-column: span 8; }
     .case-item:nth-child(4) { grid-column: span 4; }
 
+    a.case-item { color: inherit; text-decoration: none; }
     .case-item {
       display: flex;
       flex-direction: column;
@@ -399,7 +398,7 @@
       transition: filter 0.6s ease, transform 0.6s ease;
     }
 
-    .case-item:hover .case-img {
+    a.case-item:hover .case-img {
       filter: blur(5px);
       transform: scale(1.03);
     }
@@ -966,6 +965,8 @@
     @media (max-width: 900px) {
       .about-body { grid-template-columns: 1fr; }
       .cases-grid { grid-template-columns: 1fr 1fr; }
+      /* zera os spans 4/8 do desktop: todos os cards com a mesma largura */
+      .cases-grid .case-item { grid-column: auto; }
       .cases-header { flex-direction: column; gap: 20px; }
       .cases-header-right { align-items: flex-start; }
       .cases-desc { text-align: left; }
@@ -982,6 +983,9 @@
       .nav-links { gap: 18px; right: calc(var(--pad) + 65px + 20px); }
       .nav-links a { font-size: 14px; }
       .cases-grid { grid-template-columns: 1fr; }
+      .case-img { height: auto; aspect-ratio: 4 / 3; }
+      /* botão "Ver todos os projetos" vai para baixo do texto */
+      .cases-header-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
       .process-grid { grid-template-columns: 1fr; }
       .col-1-top, .col-1-bottom, .col-2-top, .col-2-bottom, .col-3-top, .col-3-bottom { height: 280px; }
     }
@@ -996,7 +1000,20 @@
   <nav id="nav">
     <div></div>
     <div class="nav-avatar">
-      <video id="nav-avatar-video" src="assets/avatar.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+      <video id="nav-avatar-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+        <source src="assets/avatar.webm" type="video/webm" />
+        <source src="assets/avatar-hevc.mov" type='video/mp4; codecs="hvc1"' />
+      </video>
+      <script>
+        // Safari só mostra a transparência no HEVC; os demais navegadores usam o WebM (VP9 com alpha)
+        (function () {
+          var v = document.getElementById('nav-avatar-video');
+          if (/^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent)) {
+            v.insertBefore(v.lastElementChild, v.firstElementChild);
+            v.load();
+          }
+        })();
+      </script>
     </div>
   </nav>
 
@@ -1066,26 +1083,26 @@
       </div>
 
       <div class="cases-grid">
-        <div class="case-item" data-reveal data-delay="1">
+        <a href="projeto-fabiola-molina.html" class="case-item" data-reveal data-delay="1">
           <div class="case-img-wrap"><img src="assets/fabiola_molina.png" class="case-img" alt="Fabiola Molina" /></div>
           <span class="case-name">Fabiola Molina</span>
           <span class="case-tag">Estratégia, Identidade Visual</span>
-        </div>
+        </a>
         <div class="case-item" data-reveal data-delay="2">
           <div class="case-img-wrap"><img src="assets/casa_lemham.jpg" class="case-img" alt="Casa Lemham" /></div>
           <span class="case-name">Casa Lemham</span>
           <span class="case-tag">Estratégia, Identidade Visual</span>
         </div>
-        <div class="case-item" data-reveal data-delay="1">
+        <a href="projeto-belief.html" class="case-item" data-reveal data-delay="1">
           <div class="case-img-wrap"><img src="assets/belief.jpg" class="case-img" alt="Belief" /></div>
           <span class="case-name">Belief</span>
           <span class="case-tag">Estratégia, Identidade Visual, Webdesign</span>
-        </div>
-        <div class="case-item" data-reveal data-delay="2">
+        </a>
+        <a href="projeto-inspire-seguros.html" class="case-item" data-reveal data-delay="2">
           <div class="case-img-wrap"><img src="assets/inspire_seguros.jpg" class="case-img" alt="Inspire Seguros" /></div>
           <span class="case-name">Inspire Seguros</span>
           <span class="case-tag">Estratégia, Identidade Visual, Webdesign</span>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -1608,7 +1625,7 @@
       document.addEventListener('mousemove', (e) => {
         if (!dotReady) { dotX = e.clientX; dotY = e.clientY; dotReady = true; }
         dotCursor.classList.add('visible');
-        dotCursor.classList.toggle('is-hidden', !!e.target.closest('.case-item'));
+        dotCursor.classList.toggle('is-hidden', !!e.target.closest('a.case-item'));
         dotCursor.classList.toggle('is-link', !!e.target.closest('a, button, .service-toggle, .process-card'));
       });
       document.documentElement.addEventListener('mouseleave', () => dotCursor.classList.remove('visible'));
@@ -1617,7 +1634,7 @@
 
     // cursor animado no globalRAF
 
-    document.querySelectorAll('.case-item').forEach(item => {
+    document.querySelectorAll('a.case-item').forEach(item => {
       item.addEventListener('mouseenter', () => verCursor.classList.add('active'));
       item.addEventListener('mouseleave', () => verCursor.classList.remove('active'));
     });

@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabiola Molina: rebranding de marca | Rooker</title>
+  <meta name="description" content="Rebranding da marca Fabiola Molina, co-criado com a Hearting. Estratégia e identidade visual pela Rooker." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rooker.com.br/projeto-fabiola-molina.html" />
+  <link rel="icon" type="image/png" href="assets/favicon_rooker_black.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #030303;
+      --white: #fcfcfc;
+      --gray: #767676;
+      --light-gray: #d7d7d7;
+      --bg: #fcfcfc;
+      --max: 1200px;
+      --pad: 16px;
+      --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px var(--pad);
+      background: transparent;
+    }
+
+    .nav-logo {
+      height: 20px;
+    }
+
+    .nav-avatar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: 65px;
+      height: 52px;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-avatar video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* ── NAV LINKS (fixos, com difference: pretos no claro, brancos no escuro) ── */
+    .nav-links {
+      position: fixed;
+      top: 16px;
+      right: calc(var(--pad) + 65px + 32px);
+      height: 52px;
+      z-index: 101;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+      mix-blend-mode: difference;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: -0.3px;
+      line-height: 1;
+      transition: opacity 0.3s ease;
+    }
+    .nav-links a:hover { opacity: 0.55; }
+    .nav-links a:focus-visible { outline: 1px solid #fff; outline-offset: 4px; }
+
+    /* ── HERO ── */
+    .hero {
+      overflow-x: clip;   /* clip (não hidden) para não quebrar o position: sticky do vídeo */
+    }
+
+    /* Logo ancorado na base da primeira tela; o vídeo começa logo abaixo da dobra */
+    .hero-logo-wrap {
+      height: 100vh;
+      height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 var(--pad) 24px;
+    }
+    .hero-logo-wrap img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Vídeo: começa pequeno no centro e cresce até a tela cheia conforme o scroll */
+    .hero-video-track {
+      height: 200vh;
+    }
+    .hero-video-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+    }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(0.35);
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    /* ── SECTIONS WRAPPER ── */
+    .container {
+      padding: 0 var(--pad);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .section-number {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray);
+      letter-spacing: -0.7px;
+    }
+
+    /* ── ABOUT SECTION ── */
+    .about {
+      padding: 160px 0;
+      background: var(--bg);
+      position: relative;
+      z-index: 1;
+    }
+
+    .about h1 {
+      font-size: clamp(40px, 5.3vw, 64px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -3.2px;
+      max-width: 789px;
+      margin-bottom: 40px;
+    }
+
+    .about-body {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 576px;
+    }
+
+    .about-text p {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ── FLOW BUTTON ── */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      overflow: hidden;
+      border-radius: 100px;
+      border: 1.5px solid rgba(51,51,51,0.4);
+      background: transparent;
+      padding: 12px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.6s cubic-bezier(0.23,1,0.32,1),
+                  color 0.6s cubic-bezier(0.23,1,0.32,1),
+                  border-radius 0.6s cubic-bezier(0.23,1,0.32,1);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .btn:hover {
+      border-color: transparent;
+      color: var(--white);
+      border-radius: 12px;
+    }
+    .btn:active { transform: scale(0.95); }
+
+    /* arrow entrada (esquerda) */
+    .btn .arr-in {
+      position: absolute;
+      left: -25%;
+      width: 16px; height: 16px;
+      z-index: 9;
+      transition: left 0.8s cubic-bezier(0.34,1.56,0.64,1),
+                  stroke 0.4s;
+      stroke: var(--black);
+      fill: none;
+      flex-shrink: 0;
+    }
+    .btn:hover .arr-in { left: 16px; stroke: var(--white); }
+
+    /* texto */
+    .btn .btn-label {
+      position: relative;
+      z-index: 1;
+      transform: translateX(-4px);
+      transition: transform 0.8s ease-out;
+      white-space: nowrap;
+    }
+    .btn:hover .btn-label { transform: translateX(12px); }
+
+    /* círculo de fundo */
+    .btn .btn-circle {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 16px; height: 16px;
+      background: var(--black);
+      border-radius: 50%;
+      opacity: 0;
+      transition: width 0.8s cubic-bezier(0.19,1,0.22,1),
+                  height 0.8s cubic-bezier(0.19,1,0.22,1),
+                  opacity 0.8s cubic-bezier(0.19,1,0.22,1);
+    }
+    .btn:hover .btn-circle {
+      width: 340px; height: 340px;
+      opacity: 1;
+    }
+
+    /* arrow saída (direita) */
+    .btn .arr-out {
+      position: absolute;
+      right: 16px;
+      width: 16px; height: 16px;
+      z-index: 9;
+      stroke: var(--black);
+      fill: none;
+      flex-shrink: 0;
+      transition: right 0.8s cubic-bezier(0.34,1.56,0.64,1),
+                  stroke 0.4s;
+    }
+    .btn:hover .arr-out { right: -25%; stroke: var(--white); }
+
+    .btn-sm { padding: 10px 28px; }
+
+    .btn-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .btn-text img { width: 14px; height: 14px; }
+    .btn-text:hover { opacity: 0.7; }
+    .btn-text-sm { font-size: 14px; }
+
+    /* ── CASES ── */
+    .cases {
+      padding: 0 0 160px;
+    }
+
+    .cases-header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .cases-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cases-header-top h2 {
+      font-size: clamp(36px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+    }
+
+    .cases-header-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cases-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.4;
+      max-width: 493px;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 10px;
+      row-gap: 40px;
+    }
+
+    /* Linha 1: pequena(4) + grande(8) */
+    .case-item:nth-child(1) { grid-column: span 4; }
+    .case-item:nth-child(2) { grid-column: span 8; }
+    /* Linha 2: grande(8) + pequena(4) */
+    .case-item:nth-child(3) { grid-column: span 8; }
+    .case-item:nth-child(4) { grid-column: span 4; }
+
+    .case-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .case-img-wrap {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .case-img {
+      width: 100%;
+      height: clamp(300px, 38vw, 520px);
+      display: block;
+      object-fit: cover;
+      transition: filter 0.6s ease, transform 0.6s ease;
+    }
+
+    .case-item:hover .case-img {
+      filter: blur(5px);
+      transform: scale(1.03);
+    }
+
+    /* ── CURSOR VER ── */
+    .case-item { cursor: none; }
+
+    /* ── CURSOR: BOLINHA PRETA (só com mouse; nos cases vale o "VER") ── */
+    .has-dot-cursor,
+    .has-dot-cursor * { cursor: none !important; }
+
+    #dot-cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      /* branco + difference: fica preta sobre o claro e branca sobre o escuro */
+      background: #fff;
+      mix-blend-mode: difference;
+      pointer-events: none;
+      z-index: 10000;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1);
+      transition: opacity 0.25s ease,
+                  transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, top, left;
+    }
+    #dot-cursor.visible { opacity: 1; }
+    #dot-cursor.is-link { transform: translate(-50%, -50%) scale(1.8); }
+    #dot-cursor.is-hidden { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+
+    #ver-cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 88px; height: 88px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  opacity 0.3s ease;
+      will-change: transform, top, left;
+    }
+    #ver-cursor.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .case-name {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .case-tag {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1;
+    }
+
+    /* ── SERVIÇOS ── */
+    .services {
+      padding: 0 0 160px;
+    }
+
+    .services-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 16px;
+    }
+
+    .services-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.4;
+      margin-bottom: 40px;
+    }
+
+    .services h2 {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .service-item {
+      border-top: 1px solid var(--light-gray);
+    }
+
+    .service-item:last-child {
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .service-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .service-name {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--light-gray);
+      letter-spacing: -1.8px;
+      line-height: 1;
+      transition: color 0.4s ease;
+    }
+
+    .service-item.active .service-name { color: var(--black); }
+
+    .service-plus {
+      width: 36px;
+      height: 36px;
+      transition: transform 0.4s ease;
+      flex-shrink: 0;
+    }
+    .service-item.active .service-plus { transform: rotate(45deg); }
+
+    .service-body {
+      max-height: 0;
+      overflow: hidden;
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.6;
+      max-width: 680px;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.4s ease;
+      opacity: 0;
+      padding: 0;
+    }
+    .service-item.active .service-body {
+      max-height: 300px;
+      padding: 0 0 28px;
+      opacity: 1;
+    }
+
+    /* ── ABOUT ROOKER ── */
+    .about-rooker {
+      padding: 0 0 160px;
+    }
+
+    .about-rooker-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: clamp(260px, 24vw, 420px) minmax(0, 1fr);
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-rooker-number {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .about-rooker-img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1100 / 1410;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-rooker-content { max-width: 760px; }
+
+    .about-rooker-content h2 {
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1.05;
+      margin-bottom: 32px;
+    }
+
+    .about-rooker-content p {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1.4;
+      margin-bottom: 32px;
+    }
+    /* parágrafos colados, como na referência; o respiro fica antes do botão */
+    .about-rooker-content p:not(:last-of-type) { margin-bottom: 0; }
+
+    /* ── PROCESSO ── */
+    .process {
+      padding: 0 0 160px;
+    }
+
+    .process-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .process h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1.05;
+      max-width: 560px;
+    }
+
+    .process-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.4;
+      margin-bottom: 40px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .process-card {
+      position: relative;
+      aspect-ratio: 256 / 220;
+      padding: 16px;
+      border: 1px solid var(--light-gray);
+      background: var(--bg);
+      color: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      cursor: default;
+      outline-offset: 2px;
+      transition: background 0.7s var(--ease-soft), border-color 0.7s var(--ease-soft), color 0.7s var(--ease-soft);
+    }
+    .process-card:hover,
+    .process-card:focus-visible {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
+    }
+
+    /* formas geométricas (mesma linguagem do logo) */
+    .process-shapes {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: flex-start;
+    }
+    .process-shapes svg {
+      display: block;
+      width: 73px;
+      height: 73px;
+      overflow: visible;
+      fill: transparent;
+      stroke: var(--light-gray);
+      stroke-width: 1;
+      transition: fill 0.7s var(--ease-soft), stroke 0.7s var(--ease-soft);
+    }
+    .process-shapes svg.half { width: 37px; }
+    .process-card:hover .process-shapes svg,
+    .process-card:focus-visible .process-shapes svg {
+      fill: var(--white);
+      stroke: var(--white);
+    }
+
+    /* botão + / − (SVGs da marca; um troca pelo outro com crossfade) */
+    .process-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 24px;
+      height: 24px;
+    }
+    .process-toggle img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+    }
+    .process-toggle .ico-minus { opacity: 0; transform: rotate(-90deg) scale(0.8); }
+    .process-card:hover .process-toggle .ico-plus,
+    .process-card:focus-visible .process-toggle .ico-plus {
+      opacity: 0;
+      transform: rotate(90deg) scale(0.8);
+    }
+    .process-card:hover .process-toggle .ico-minus,
+    .process-card:focus-visible .process-toggle .ico-minus {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    /* nome e descrição ocupam o mesmo lugar; um troca pelo outro no hover */
+    .process-text {
+      position: relative;
+      min-height: 4.8em;
+      display: flex;
+      align-items: flex-end;
+    }
+    .process-name,
+    .process-card-desc {
+      transition: opacity 0.6s var(--ease-soft), transform 0.7s var(--ease-soft);
+    }
+    .process-name {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+    .process-card-desc {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      font-size: 16px;
+      line-height: 1.25;
+      letter-spacing: -0.3px;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .process-card:hover .process-name,
+    .process-card:focus-visible .process-name {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    .process-card:hover .process-card-desc,
+    .process-card:focus-visible .process-card-desc {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.12s;
+    }
+
+    /* ── POR QUE ROOKER ── */
+    .why {
+      padding: 0 0 160px;
+    }
+
+    .why-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+
+    .why h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+    }
+
+    .why-item {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .why-item:first-child { padding-top: 0; }
+    .why-item:last-of-type { padding-bottom: 0; border-bottom: 0; }
+
+    /* duas colunas: forma vazada à esquerda (fixa enquanto a lista rola) + lista à direita */
+    .why-grid {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+    }
+    .why-art {
+      position: sticky;
+      top: 120px;
+      padding-right: 64px;
+    }
+    .why-art svg {
+      display: block;
+      /* largura flexível: cresce com a tela, sem ficar pequena nem gigante */
+      width: clamp(260px, 34vw, 600px);
+      height: auto;
+      fill: none;
+      stroke: var(--light-gray);
+      stroke-width: 1;
+      overflow: visible;
+    }
+
+    .why-item h3 {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .why-item p {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+
+    .why .btn { margin-top: 40px; width: fit-content; }
+
+    /* ── BLOG ── */
+    .blog {
+      padding: 0 0 160px;
+    }
+
+    .blog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+
+    .blog h2 {
+      font-size: clamp(36px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: 375px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .blog-date {
+      font-size: 14px;
+      color: var(--gray);
+      letter-spacing: -0.7px;
+      margin-bottom: 8px;
+    }
+
+    .blog-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      margin: 0 0 0 0;
+      background: #f3f3f3;
+      padding: 160px 0;
+    }
+
+    .cta h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .cta p {
+      font-size: 16px;
+      color: var(--black);
+      line-height: 1.4;
+      max-width: 560px;
+      margin-bottom: 40px;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 400px var(--pad) 32px;
+    }
+
+    .footer-logo {
+      width: 100%;
+      display: block;
+      margin-bottom: 48px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links .btn-text {
+      color: var(--white);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer-links .btn-text:hover { opacity: 1; }
+
+    .footer-links .btn-text img {
+      filter: invert(1);
+    }
+
+    .footer-copyright {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.8px;
+    }
+
+    /* ── REVEAL ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    [data-reveal="left"] {
+      transform: translateX(-40px);
+    }
+    [data-reveal="left"].revealed {
+      transform: translateX(0);
+    }
+    [data-reveal="right"] {
+      transform: translateX(40px);
+    }
+    [data-reveal="right"].revealed {
+      transform: translateX(0);
+    }
+    [data-delay="1"] { transition-delay: 0.1s; }
+    [data-delay="2"] { transition-delay: 0.2s; }
+    [data-delay="3"] { transition-delay: 0.35s; }
+    [data-delay="4"] { transition-delay: 0.5s; }
+
+    /* mantém fade-up para compatibilidade */
+    .fade-up { opacity: 0; transition: opacity 0.9s ease, transform 0.9s ease; transform: translateY(30px); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-body { grid-template-columns: 1fr; }
+      .cases-grid { grid-template-columns: 1fr 1fr; }
+      .cases-header { flex-direction: column; gap: 20px; }
+      .cases-header-right { align-items: flex-start; }
+      .cases-desc { text-align: left; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
+      .why-art { position: static; padding-right: 0; }
+      .why-art svg { width: min(100%, clamp(220px, 55vw, 360px)); }
+      .about-rooker-grid { grid-template-columns: 1fr; }
+      .about-rooker-img { max-width: 420px; }
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { gap: 18px; right: calc(var(--pad) + 65px + 20px); }
+      .nav-links a { font-size: 14px; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .col-1-top, .col-1-bottom, .col-2-top, .col-2-bottom, .col-3-top, .col-3-bottom { height: 280px; }
+    }
+  
+    /* ── PÁGINA DE PROJETO (artboard "Projeto" do Figma) ── */
+    .project {
+      padding: 232px var(--pad) 160px;
+    }
+    .project-cover {
+      width: 100%;
+      aspect-ratio: 1168 / 656;
+      object-fit: cover;
+      display: block;
+      background: var(--light-gray);
+    }
+    .project-title {
+      margin-top: 36px;
+      font-size: clamp(40px, 5.4vw, 64px);
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .project-text {
+      margin-top: 48px;
+      max-width: 773px;
+    }
+    .project-text p {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+    .project-text p + p { margin-top: 22px; }
+
+    /* galeria: linhas de 1, 2 ou 3 imagens, 20px de respiro (como no Figma) */
+    .project-gallery {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .gallery-row {
+      display: grid;
+      gap: 20px;
+    }
+    .gallery-row.two   { grid-template-columns: 1fr 1fr; }
+    .gallery-row.three { grid-template-columns: 1fr 1fr 1fr; }
+    .gallery-row.split { grid-template-columns: 1fr 1fr; }
+    .gallery-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; min-height: 0; }
+    .gallery-row.split > img { height: 100%; }
+    .gallery-stack img { height: 100%; }
+    .project-gallery img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      background: var(--light-gray);
+    }
+
+
+    /* outros projetos */
+    .project-others {
+      padding: 0 var(--pad) 160px;
+    }
+    .project-others h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -2.4px;
+      line-height: 1;
+      margin-bottom: 48px;
+    }
+    .others-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .others-card { display: block; color: var(--black); text-decoration: none; }
+    .others-img {
+      overflow: hidden;
+      aspect-ratio: 901 / 420;
+      margin-bottom: 14px;
+      background: var(--light-gray);
+    }
+    .others-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.9s var(--ease-soft);
+    }
+    .others-card[href]:hover .others-img img { transform: scale(1.04); }
+    .others-card span {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.6px;
+    }
+
+    /* logo pequeno no topo, levando de volta à home */
+    .project-logo {
+      position: fixed;
+      top: 16px;
+      left: var(--pad);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      z-index: 101;
+      mix-blend-mode: difference;   /* preto no claro, branco sobre a capa escura */
+    }
+    .project-logo img { width: 120px; display: block; filter: invert(1); }
+
+    @media (max-width: 900px) {
+      .project { padding-top: 140px; padding-bottom: 120px; }
+      .others-grid { grid-template-columns: 1fr; }
+      .gallery-row.three { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .gallery-row.two, .gallery-row.three, .gallery-row.split { grid-template-columns: 1fr; }
+      .gallery-row.split > img { height: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="project-logo" href="index.html" aria-label="Rooker, voltar para a home"><img src="assets/logo_rooker_black.svg" alt="Rooker" /></a>
+  <div class="nav-links" role="navigation" aria-label="Principal">
+    <a href="index.html">Home</a>
+    <a href="index.html#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </div>
+
+  <nav id="nav">
+    <div></div>
+    <div class="nav-avatar">
+      <video id="nav-avatar-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+        <source src="assets/avatar.webm" type="video/webm" />
+        <source src="assets/avatar-hevc.mov" type='video/mp4; codecs="hvc1"' />
+      </video>
+      <script>
+        // Safari só mostra a transparência no HEVC; os demais navegadores usam o WebM (VP9 com alpha)
+        (function () {
+          var v = document.getElementById('nav-avatar-video');
+          if (/^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent)) {
+            v.insertBefore(v.lastElementChild, v.firstElementChild);
+            v.load();
+          }
+        })();
+      </script>
+    </div>
+  </nav>
+  <div id="ver-cursor">VER</div>
+  <div id="dot-cursor" aria-hidden="true"></div>
+
+  <main class="project">
+    <img class="project-cover" data-reveal src="assets/projetos/fabiola-molina/capa_fabiola_molina.webp" alt="Fabiola Molina, nadadora olímpica" />
+
+    <h1 class="project-title" data-reveal>Fabiola Molina</h1>
+
+    <div class="project-text" data-reveal>
+      <p>Fabiola Molina é uma das maiores nadadoras da história do Brasil. Quatro Olimpíadas, recordes sul-americanos, uma trajetória que atravessou décadas dentro da piscina. Quando essa atleta abriu uma marca própria, há mais de quinze anos, a identidade visual carregou desde o início o peso dessa origem. Força, disciplina, presença.</p>
+      <p>O tempo passou. O negócio cresceu, o portfólio se expandiu, o público ficou mais sofisticado. Em algum momento, a própria Fabiola percebeu o que o mercado já estava começando a ler. A marca ainda contava a história do começo, não a do que a empresa havia se tornado. A decisão de rebranding veio desse reconhecimento.</p>
+      <p>O trabalho foi de realinhamento. Não de reinvenção. Preservar o que a marca tem de mais valioso, a herança da atleta e o reconhecimento construído ao longo de quase duas décadas, e encontrar a forma visual que sustenta isso no patamar atual. O logotipo permanece reconhecível para quem chega de longe. Ganha precisão, atualidade e estrutura para o que vem pela frente.</p>
+      <p>Uma co-criação com a Hearting.</p>
+    </div>
+
+    <div class="project-gallery">
+        <div class="gallery-row two" data-reveal>
+          <img src="assets/projetos/fabiola-molina/nadador_nadadora_fabiola_molina.webp" width="1395" height="1572" alt="Nadador e nadadora vestindo peças da marca Fabiola Molina" loading="lazy" />
+          <img src="assets/projetos/fabiola-molina/nadadora_fabiola_molina.webp" width="1401" height="1572" alt="Nadadora Fabiola Molina na borda da piscina" loading="lazy" />
+        </div>
+        <div class="gallery-row two" data-reveal>
+          <img src="assets/projetos/fabiola-molina/logo_antigo_fabiola_molina.webp" width="1398" height="784" alt="Logotipo antigo da Fabiola Molina" loading="lazy" />
+          <img src="assets/projetos/fabiola-molina/logo_novo_fabiola_molina.webp" width="1398" height="784" alt="Novo logotipo da Fabiola Molina" loading="lazy" />
+        </div>
+        <div class="gallery-row one" data-reveal>
+          <img src="assets/projetos/fabiola-molina/bag_mockup.webp" width="1820" height="1024" alt="Bolsa com a nova identidade sobre uma poltrona" loading="lazy" />
+        </div>
+        <div class="gallery-row one" data-reveal>
+          <img src="assets/projetos/fabiola-molina/tipografia_fabiola_molina.webp" width="2400" height="1339" alt="Tipografia da identidade Fabiola Molina" loading="lazy" />
+        </div>
+        <div class="gallery-row one" data-reveal>
+          <img src="assets/projetos/fabiola-molina/cartao_mockup.webp" width="2400" height="1440" alt="Cartões de visita Fabiola Molina" loading="lazy" />
+        </div>
+        <div class="gallery-row one" data-reveal>
+          <img src="assets/projetos/fabiola-molina/story_fabiola_molina.webp" width="2400" height="1350" alt="Stories com a nova identidade" loading="lazy" />
+        </div>
+        <div class="gallery-row one" data-reveal>
+          <img src="assets/projetos/fabiola-molina/billboard_01_mckup.webp" width="2400" height="1350" alt="Outdoor com a marca Fabiola Molina" loading="lazy" />
+        </div>
+        <div class="gallery-row two" data-reveal>
+          <img src="assets/projetos/fabiola-molina/cartao_visita_fabiola_molina.webp" width="1398" height="1568" alt="Cartão de visita Fabiola Molina" loading="lazy" />
+          <img src="assets/projetos/fabiola-molina/bolsa_sport_mockup.webp" width="1390" height="1558" alt="Bolsa esportiva Fabiola Molina" loading="lazy" />
+        </div>
+        <div class="gallery-row one" data-reveal>
+          <img src="assets/projetos/fabiola-molina/garrafa_mockup.webp" width="1820" height="1024" alt="Garrafa com a marca Fabiola Molina" loading="lazy" />
+        </div>
+        <div class="gallery-row split" data-reveal>
+          <img src="assets/projetos/fabiola-molina/iphone_mockup.webp" width="1390" height="1568" alt="Aplicação da marca no celular" loading="lazy" />
+          <div class="gallery-stack">
+            <img src="assets/projetos/fabiola-molina/logo_azul_escuro_fabiola_molina.webp" width="1398" height="784" alt="Logotipo sobre azul escuro" loading="lazy" />
+            <img src="assets/projetos/fabiola-molina/logo_azul_claro_fabiola_molina.webp" width="1398" height="784" alt="Logotipo sobre azul claro" loading="lazy" />
+          </div>
+        </div>
+        <div class="gallery-row one" data-reveal>
+          <img src="assets/projetos/fabiola-molina/billboard_02_mckup.webp" width="2400" height="1600" alt="Segundo outdoor com a marca Fabiola Molina" loading="lazy" />
+        </div>
+    </div>
+  </main>
+
+  <section class="project-others">
+    <h2 data-reveal>Outros projetos</h2>
+    <div class="others-grid">
+      <a href="projeto-belief.html" class="others-card" data-reveal data-delay="1">
+        <div class="others-img"><img src="assets/projetos/thumbs/belief.webp" alt="Belief" width="1800" height="1013" loading="lazy" /></div>
+        <span>Belief</span>
+      </a>
+      <a class="others-card" aria-disabled="true" data-reveal data-delay="2">
+        <div class="others-img"><img src="assets/projetos/thumbs/casa_lemham.webp" alt="Casa Lemham" width="1800" height="1005" loading="lazy" /></div>
+        <span>Casa Lemham</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contato">
+    <div class="container">
+      <h2 data-reveal>O negócio já mudou.<br />Agora é a vez da marca.</h2>
+      <p>Cada projeto começa por uma conversa. Sem compromisso e sem orçamento na primeira linha. O objetivo dela é entender onde seu negócio está e se faz sentido seguir juntos.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-sm" style="width:fit-content">
+          <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <span class="btn-label">Marcar uma conversa</span>
+          <span class="btn-circle"></span>
+          <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="assets/footer-logo.svg" class="footer-logo" alt="Rooker" />
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="#" class="btn-text" style="color:var(--white)">
+          Instagram
+          <img src="assets/arrow-up-right.svg" alt="" />
+        </a>
+        <a href="#" class="btn-text" style="color:var(--white)">
+          WhatsApp
+          <img src="assets/arrow-up-right.svg" alt="" />
+        </a>
+        <a href="#" class="btn-text" style="color:var(--white)">
+          Email
+          <img src="assets/arrow-up-right.svg" alt="" />
+        </a>
+      </div>
+      <span class="footer-copyright">©2026</span>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    // ── SMOOTH SCROLL (Lenis, mesmos parâmetros da home) ─────────
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    // links âncora funcionam com Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      const id = anchor.getAttribute('href');
+      if (id.length < 2) return;
+      anchor.addEventListener('click', (e) => {
+        const target = document.querySelector(id);
+        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80 }); }
+      });
+    });
+
+    // ── REVEAL ao rolar (mesma lógica da home) ───────────────────
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+    // avatar animado parado para quem prefere menos movimento
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduceMotion.matches) document.getElementById('nav-avatar-video').pause();
+
+    // ── CURSOR BOLINHA (igual à home) ────────────────────────────
+    const dotCursor = document.getElementById('dot-cursor');
+    const useDot = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let mx = 0, my = 0, dx = 0, dy = 0, dotReady = false;
+    if (useDot) {
+      document.documentElement.classList.add('has-dot-cursor');
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX; my = e.clientY;
+        if (!dotReady) { dx = mx; dy = my; dotReady = true; }
+        const onCard = !!e.target.closest('.others-card[href]');
+        dotCursor.classList.add('visible');
+        dotCursor.classList.toggle('is-hidden', onCard);   // nos cards vale o "VER"
+        dotCursor.classList.toggle('is-link', !onCard && !!e.target.closest('a, button'));
+      });
+      document.documentElement.addEventListener('mouseleave', () => dotCursor.classList.remove('visible'));
+    }
+
+    // ── CURSOR "VER" nos cards de outros projetos (igual aos cases da home) ──
+    const verCursor = document.getElementById('ver-cursor');
+    let vx = 0, vy = 0;
+    document.querySelectorAll('.others-card[href]').forEach(card => {
+      card.addEventListener('mouseenter', () => verCursor.classList.add('active'));
+      card.addEventListener('mouseleave', () => verCursor.classList.remove('active'));
+    });
+
+    // rAF único: lenis + cursor
+    function loop(time) {
+      lenis.raf(time);
+      if (useDot && dotReady) {
+        dx += (mx - dx) * 0.35; dy += (my - dy) * 0.35;
+        dotCursor.style.left = dx + 'px'; dotCursor.style.top = dy + 'px';
+      }
+      vx += (mx - vx) * 0.12; vy += (my - vy) * 0.12;
+      verCursor.style.left = vx + 'px'; verCursor.style.top = vy + 'px';
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
