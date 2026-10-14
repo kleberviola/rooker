@@ -1136,6 +1136,48 @@
       .gallery-row.split > img { height: auto; }
     }
 
+    /* ── TRANSIÇÃO ENTRE PÁGINAS ── */
+    @view-transition { navigation: auto; }
+
+    #nav { view-transition-name: site-nav; }
+
+    a[href="projeto-fabiola-molina.html"]   :is(.case-img, .others-img img) { view-transition-name: cover-fabiola-molina; }
+    a[href="projeto-casa-lemham.html"]      :is(.case-img, .others-img img) { view-transition-name: cover-casa-lemham; }
+    a[href="projeto-belief.html"]           :is(.case-img, .others-img img) { view-transition-name: cover-belief; }
+    a[href="projeto-inspire-seguros.html"]  :is(.case-img, .others-img img) { view-transition-name: cover-inspire-seguros; }
+    .case-img, .others-img img, .project-cover { view-transition-class: cover; }
+
+    ::view-transition-group(*.cover),
+    ::view-transition-old(*.cover),
+    ::view-transition-new(*.cover) {
+      animation-duration: 400ms;
+      animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    ::view-transition-image-pair(*.cover) { overflow: clip; }
+    ::view-transition-old(*.cover),
+    ::view-transition-new(*.cover) {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 200ms;
+      animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* captura sem o blur/zoom do hover */
+    .vt-leaving .case-img,
+    .vt-leaving .others-img img {
+      filter: none !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .case-img, .others-img img, .project-cover { view-transition-name: none !important; }
+    }
+
     /* ── MOVIMENTO REDUZIDO ── */
     @media (prefers-reduced-motion: reduce) {
       /* reveal: só fade, curto, sem atraso escalonado */
@@ -1185,6 +1227,26 @@
       .process-card:focus .process-toggle .ico-minus { transform: none; }
     }
   </style>
+  <script>
+    // ── TRANSIÇÃO ENTRE PÁGINAS ──: registrado no <head>, antes do primeiro render
+    window.addEventListener('pageswap', (e) => {
+      if (e.viewTransition) document.documentElement.classList.add('vt-leaving');
+    });
+    window.addEventListener('pageshow', () => document.documentElement.classList.remove('vt-leaving'));
+    window.addEventListener('pagereveal', (e) => {
+      if (!e.viewTransition) return;
+      const vh = window.innerHeight;
+      document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        // cards com imagem de transição sempre: no "voltar" o scroll é restaurado depois deste evento
+        if ((r.bottom > 0 && r.top < vh) || el.querySelector('.case-img, .others-img')) {
+          el.style.transition = 'none';
+          el.classList.add('revealed');
+          requestAnimationFrame(() => requestAnimationFrame(() => { el.style.transition = ''; }));
+        }
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -1218,7 +1280,7 @@
   <div id="dot-cursor" aria-hidden="true"></div>
 
   <main class="project">
-    <img class="project-cover" data-reveal src="assets/projetos/casa-lemham/capa_casa_lemham.webp" alt="Casa Lemham, mulher segurando a revista da marca" />
+    <img class="project-cover" style="view-transition-name: cover-casa-lemham" src="assets/projetos/casa-lemham/capa_casa_lemham.webp" alt="Casa Lemham, mulher segurando a revista da marca" />
 
     <h1 class="project-title" data-reveal>Casa Lemham</h1>
 

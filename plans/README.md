@@ -8,6 +8,7 @@ Gerados pela auditoria `improve-animations` no commit `74648b8`. Cada plano é a
 | 002 | [Hover só em dispositivos com mouse](002-gate-hover-touch.md) | MEDIUM | DONE |
 | 003 | [Acordeão de serviços: grid-rows + acessível](003-services-accordion.md) | MEDIUM | DONE |
 | 004 | [Respeitar `prefers-reduced-motion`](004-reduced-motion.md) | HIGH | DONE |
+| 005 | [Transição do card para a capa do projeto](005-card-to-cover-transition.md) | LOW | DONE |
 
 ## Ordem recomendada
 
@@ -26,4 +27,3 @@ Gerados pela auditoria `improve-animations` no commit `74648b8`. Cada plano é a
 
 - `globalRAF` escreve `top`/`left`/`width` do logo e dos cursores em todo quadro (MEDIUM).
 - Hovers de 0.6–0.8s em botão/processo; 5 curvas ease-out quase iguais sem token; `.fade-up` sem uso; cursor "VER" nascendo de `scale(0)` (LOW).
-- Oportunidade: View Transitions entre o card da home e a capa da página do projeto.
