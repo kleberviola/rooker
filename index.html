@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rooker — Branding Estratégico</title>
+  <title>Rooker Studio | Branding e rebranding para empresas</title>
   <meta name="description" content="A Rooker alinha a imagem da sua empresa com o negócio que ela já se tornou. Branding e rebranding estratégico para empresas que cresceram e precisam que a marca reflita quem são hoje." />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://rooker.com.br/" />
+  <link rel="canonical" href="https://www.rookerstudio.com/" />
   <link rel="icon" type="image/png" href="assets/favicon_rooker_black.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rooker.com.br/" />
-  <meta property="og:title" content="Rooker — Branding Estratégico" />
+  <meta property="og:url" content="https://www.rookerstudio.com/" />
+  <meta property="og:title" content="Rooker Studio | Branding e rebranding para empresas" />
   <meta property="og:description" content="A Rooker alinha a imagem da sua empresa com o negócio que ela já se tornou. Branding e rebranding com correção de rota." />
-  <meta property="og:image" content="https://rooker.com.br/assets/og-image.jpg" />
+  <meta property="og:image" content="https://www.rookerstudio.com/assets/og-image.jpg" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:site_name" content="Rooker" />
 
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Rooker — Branding Estratégico" />
   <meta name="twitter:description" content="A Rooker alinha a imagem da sua empresa com o negócio que ela já se tornou. Branding e rebranding com correção de rota." />
-  <meta name="twitter:image" content="https://rooker.com.br/assets/og-image.jpg" />
+  <meta name="twitter:image" content="https://www.rookerstudio.com/assets/og-image.jpg" />
 
   <!-- Schema.org -->
   <script type="application/ld+json">
@@ -32,8 +32,11 @@
     "@type": "ProfessionalService",
     "name": "Rooker",
     "description": "Branding e rebranding estratégico. A Rooker alinha a imagem da empresa com o negócio que ela já se tornou.",
-    "url": "https://rooker.com.br",
-    "areaServed": "BR",
+    "url": "https://www.rookerstudio.com",
+    "address": {"@type": "PostalAddress", "addressLocality": "São José dos Campos", "addressRegion": "SP", "addressCountry": "BR"},
+    "areaServed": ["São José dos Campos", "São Paulo", "Brasil"],
+    "email": "hey@rookerstudio.com",
+    "sameAs": ["https://www.instagram.com/rooker.studio/"],
     "inLanguage": "pt-BR",
     "serviceType": ["Branding", "Rebranding", "Identidade Visual", "Estratégia de Marca"]
   }
@@ -957,6 +960,31 @@
       gap: 12px;
     }
 
+    .cta-schedule {
+      font-size: 14px;
+      color: var(--gray);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      width: fit-content;
+      transition: color 0.2s;
+    }
+    .cta-schedule:hover { color: var(--black); }
+
+    .cta-alt {
+      margin-top: 96px;
+      padding-top: 40px;
+      border-top: 1px solid var(--light-gray);
+      max-width: 560px;
+    }
+    .cta-alt h3 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -1.2px;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .cta-alt p { margin-bottom: 24px; }
+
     /* ── FOOTER ── */
     footer {
       background: var(--black);
@@ -1053,8 +1081,6 @@
       .nav-links a { font-size: 14px; }
       .cases-grid { grid-template-columns: 1fr; }
       .case-img { height: auto; aspect-ratio: 4 / 3; }
-      /* botão "Ver todos os projetos" vai para baixo do texto */
-      .cases-header-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
       .process-grid { grid-template-columns: 1fr; }
       .col-1-top, .col-1-bottom, .col-2-top, .col-2-bottom, .col-3-top, .col-3-bottom { height: 280px; }
     }
@@ -1233,7 +1259,7 @@
           <p>A Rooker fecha essa distância. Não com atualização estética. Com construção fundamentada.</p>
         </div>
         <div data-reveal data-delay="3">
-          <a href="#contato" class="btn">
+          <a href="https://wa.me/message/6Q2DVRFKU5R6D1" target="_blank" rel="noopener" class="btn">
             <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             <span class="btn-label">Marcar uma conversa</span>
             <span class="btn-circle"></span>
@@ -1254,12 +1280,6 @@
         </div>
         <div class="cases-header-bottom">
           <p class="cases-desc">Setores diferentes, portes diferentes, o mesmo método. Cada projeto começou por uma conversa sobre o negócio, não por um pedido de identidade visual.</p>
-          <a href="#" class="btn btn-sm">
-            <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            <span class="btn-label">Ver todos os projetos</span>
-            <span class="btn-circle"></span>
-            <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
         </div>
       </div>
 
@@ -1300,7 +1320,7 @@
       <div class="service-item active" id="svc-branding" data-reveal data-delay="1">
         <button type="button" class="service-toggle" aria-expanded="true" aria-controls="svc-branding-body" onclick="toggleService('svc-branding')">
           <span class="service-name">Branding</span>
-          <img src="assets/plus-icon.svg" class="service-plus" alt="" />
+          <img src="assets/plus-icon.svg" class="service-plus" alt="" aria-hidden="true" />
         </button>
         <div class="service-body" id="svc-branding-body">
           <div class="service-body-inner"><p>Para quem está construindo agora e quer começar com estrutura. Diagnóstico, posicionamento, identidade visual completa e sistema de aplicação.</p></div>
@@ -1310,7 +1330,7 @@
       <div class="service-item" id="svc-rebranding" data-reveal data-delay="2">
         <button type="button" class="service-toggle" aria-expanded="false" aria-controls="svc-rebranding-body" onclick="toggleService('svc-rebranding')">
           <span class="service-name">Rebranding</span>
-          <img src="assets/plus-icon.svg" class="service-plus" alt="" />
+          <img src="assets/plus-icon.svg" class="service-plus" alt="" aria-hidden="true" />
         </button>
         <div class="service-body" id="svc-rebranding-body">
           <div class="service-body-inner"><p>Para a empresa que mudou de mercado, de porte ou de ambição. Novo posicionamento, nova identidade e plano de transição para a marca acompanhar o movimento.</p></div>
@@ -1320,7 +1340,7 @@
       <div class="service-item" id="svc-evolucao" data-reveal data-delay="2">
         <button type="button" class="service-toggle" aria-expanded="false" aria-controls="svc-evolucao-body" onclick="toggleService('svc-evolucao')">
           <span class="service-name">Evolução de marca</span>
-          <img src="assets/plus-icon.svg" class="service-plus" alt="" />
+          <img src="assets/plus-icon.svg" class="service-plus" alt="" aria-hidden="true" />
         </button>
         <div class="service-body" id="svc-evolucao-body">
           <div class="service-body-inner"><p>Para a marca que acertou no fundamento e quer subir o padrão da expressão. Atualização da identidade sem mexer no posicionamento do negócio.</p></div>
@@ -1330,7 +1350,7 @@
       <div class="service-item" id="svc-site" data-reveal data-delay="2">
         <button type="button" class="service-toggle" aria-expanded="false" aria-controls="svc-site-body" onclick="toggleService('svc-site')">
           <span class="service-name">Site e landing page</span>
-          <img src="assets/plus-icon.svg" class="service-plus" alt="" />
+          <img src="assets/plus-icon.svg" class="service-plus" alt="" aria-hidden="true" />
         </button>
         <div class="service-body" id="svc-site-body">
           <div class="service-body-inner"><p>Presença digital no mesmo padrão da marca. Para projetos da Rooker e para empresas que chegam com a marca já construída.</p></div>
@@ -1351,7 +1371,7 @@
       <div class="process-grid">
         <div class="process-card" tabindex="0" data-reveal data-delay="1">
           <div class="process-shapes"><svg class="half" viewBox="0 0 37 73" aria-hidden="true"><path d="M36.5 0.5 A36 36 0 0 0 36.5 72.5 Z"/></svg></div>
-          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" /><img class="ico-minus" src="assets/process-minus.svg" alt="" /></span>
+          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" aria-hidden="true" /><img class="ico-minus" src="assets/process-minus.svg" alt="" aria-hidden="true" /></span>
           <div class="process-text">
             <span class="process-name">01. Escuta</span>
             <p class="process-card-desc">Diagnóstico do negócio antes de qualquer proposta visual.</p>
@@ -1359,7 +1379,7 @@
         </div>
         <div class="process-card" tabindex="0" data-reveal data-delay="2">
           <div class="process-shapes"><svg class="half" viewBox="0 0 37 73" aria-hidden="true"><path d="M36.5 0.5 A36 36 0 0 0 36.5 72.5 Z"/></svg><svg viewBox="0 0 73 73" aria-hidden="true"><circle cx="36.5" cy="36.5" r="36"/></svg></div>
-          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" /><img class="ico-minus" src="assets/process-minus.svg" alt="" /></span>
+          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" aria-hidden="true" /><img class="ico-minus" src="assets/process-minus.svg" alt="" aria-hidden="true" /></span>
           <div class="process-text">
             <span class="process-name">02. Fundamento</span>
             <p class="process-card-desc">Posicionamento e as decisões que sustentam tudo que vem depois.</p>
@@ -1367,7 +1387,7 @@
         </div>
         <div class="process-card" tabindex="0" data-reveal data-delay="3">
           <div class="process-shapes"><svg viewBox="0 0 73 73" aria-hidden="true"><circle cx="36.5" cy="36.5" r="36"/></svg></div>
-          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" /><img class="ico-minus" src="assets/process-minus.svg" alt="" /></span>
+          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" aria-hidden="true" /><img class="ico-minus" src="assets/process-minus.svg" alt="" aria-hidden="true" /></span>
           <div class="process-text">
             <span class="process-name">03. Forma</span>
             <p class="process-card-desc">Identidade visual e verbal construída a partir da decisão.</p>
@@ -1375,7 +1395,7 @@
         </div>
         <div class="process-card" tabindex="0" data-reveal data-delay="4">
           <div class="process-shapes"><svg viewBox="0 0 73 73" aria-hidden="true"><circle cx="36.5" cy="36.5" r="36"/></svg><svg viewBox="0 0 73 73" aria-hidden="true"><circle cx="36.5" cy="36.5" r="36"/></svg></div>
-          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" /><img class="ico-minus" src="assets/process-minus.svg" alt="" /></span>
+          <span class="process-toggle" aria-hidden="true"><img class="ico-plus" src="assets/process-plus.svg" alt="" aria-hidden="true" /><img class="ico-minus" src="assets/process-minus.svg" alt="" aria-hidden="true" /></span>
           <div class="process-text">
             <span class="process-name">04. Entrega</span>
             <p class="process-card-desc">Manual, arquivos e o porquê de cada escolha.</p>
@@ -1397,7 +1417,7 @@
           <h2>A Rooker não executa briefings. Entrega direção, com o argumento por trás de cada decisão.</h2>
           <p>Vinte e quatro anos na área criativa, entre agências e estúdios, com passagem por estúdio internacional atendendo marcas globais. Marca é onde esse caminho chegou, não onde ele começou. O critério estético e o método que a Rooker aplica vêm dessa trajetória, e chegam a projetos que normalmente não teriam acesso a esse nível.</p>
           <p>O cliente não recebe um arquivo. Recebe a decisão e o porquê. Cada escolha tem fundamento explicável, de uma cor a um espaçamento. Estética o mercado tem de sobra. Argumento, não.</p>
-          <a href="#contato" class="btn btn-sm">
+          <a href="#sobre" class="btn btn-sm">
             <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             <span class="btn-label">Conhecer a Rooker</span>
             <span class="btn-circle"></span>
@@ -1443,7 +1463,7 @@
             <h3>Construção pensada</h3>
             <p>Cada decisão é tomada pensando no negócio que você<br />vai ter, não na tendência que vai passar.</p>
           </div>
-          <a href="#contato" class="btn btn-sm" data-reveal>
+          <a href="#sobre" class="btn btn-sm" data-reveal>
             <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             <span class="btn-label">Conhecer a Rooker</span>
             <span class="btn-circle"></span>
@@ -1460,11 +1480,20 @@
       <h2 data-reveal>O negócio já mudou.<br />Agora é a vez da marca.</h2>
       <p>Cada projeto começa por uma conversa. Sem compromisso e sem orçamento na primeira linha. O objetivo dela é entender onde seu negócio está e se faz sentido seguir juntos.</p>
       <div class="cta-actions">
-        <a href="#" class="btn btn-sm" style="width:fit-content">
+        <a href="https://wa.me/message/6Q2DVRFKU5R6D1" target="_blank" rel="noopener" class="btn btn-sm" style="width:fit-content">
           <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           <span class="btn-label">Marcar uma conversa</span>
           <span class="btn-circle"></span>
           <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="[LINK_AGENDA]" target="_blank" rel="noopener" class="cta-schedule">Prefere agendar direto? Escolha um horário</a>
+      </div>
+      <div class="cta-alt" data-reveal>
+        <h3>Ainda avaliando se é o momento?</h3>
+        <p>O diagnóstico de marca são seis perguntas e leva noventa segundos. No final, você vê em que ponto sua marca está em relação ao negócio.</p>
+        <a href="https://www.rookerstudio.com/diagnostico_marca/" class="btn-text">
+          Fazer o diagnóstico
+          <img src="assets/arrow-up-right.svg" alt="" aria-hidden="true" />
         </a>
       </div>
     </div>
@@ -1475,20 +1504,20 @@
     <img src="assets/footer-logo.svg" class="footer-logo" alt="Rooker" />
     <div class="footer-bottom">
       <div class="footer-links">
-        <a href="#" class="btn-text" style="color:var(--white)">
+        <a href="https://www.instagram.com/rooker.studio/" target="_blank" rel="noopener" class="btn-text" style="color:var(--white)">
           Instagram
-          <img src="assets/arrow-up-right.svg" alt="" />
+          <img src="assets/arrow-up-right.svg" alt="" aria-hidden="true" />
         </a>
-        <a href="#" class="btn-text" style="color:var(--white)">
+        <a href="https://wa.me/message/6Q2DVRFKU5R6D1" target="_blank" rel="noopener" class="btn-text" style="color:var(--white)">
           WhatsApp
-          <img src="assets/arrow-up-right.svg" alt="" />
+          <img src="assets/arrow-up-right.svg" alt="" aria-hidden="true" />
         </a>
-        <a href="#" class="btn-text" style="color:var(--white)">
+        <a href="mailto:hey@rookerstudio.com" class="btn-text" style="color:var(--white)">
           Email
-          <img src="assets/arrow-up-right.svg" alt="" />
+          <img src="assets/arrow-up-right.svg" alt="" aria-hidden="true" />
         </a>
       </div>
-      <span class="footer-copyright">©2026</span>
+      <span class="footer-copyright">©2026 São José dos Campos e São Paulo</span>
     </div>
   </footer>
 
