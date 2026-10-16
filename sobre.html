@@ -23,6 +23,8 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    ::selection { background: var(--black); color: var(--white); }
+
     :root {
       --black: #030303;
       --white: #fcfcfc;
@@ -443,6 +445,8 @@
       color: var(--black);
     }
 
+    .intro-link { margin-top: 32px; }
+
     /* método: uma linha por fase */
     .method-item {
       display: grid;
@@ -492,7 +496,6 @@
       line-height: 1.05;
     }
     .split .body-text { max-width: 576px; }
-    .split .section-number { display: block; margin-bottom: 16px; }
 
     /* entrega */
     .deliver-grid {
@@ -510,20 +513,19 @@
       justify-content: space-between;
       gap: 24px;
     }
-    .deliver-card span {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gray);
-      letter-spacing: -0.7px;
-    }
     .deliver-card p {
       font-size: 22px;
       font-weight: 500;
       letter-spacing: -1px;
       line-height: 1.1;
     }
-    .deliver-card.is-key { background: var(--black); border-color: var(--black); color: var(--white); }
-    .deliver-card.is-key span { color: var(--light-gray); }
+    .deliver-card {
+      justify-content: flex-end;
+      transition: background 0.7s var(--ease-soft), border-color 0.7s var(--ease-soft), color 0.7s var(--ease-soft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .deliver-card:hover { background: var(--black); border-color: var(--black); color: var(--white); }
+    }
     .deliver-text { max-width: 680px; }
     .deliver-text .lead {
       font-size: 20px;
@@ -544,8 +546,7 @@
       padding-top: 24px;
       border-top: 1px solid var(--black);
     }
-    .principle .section-number { display: block; margin-bottom: 40px; }
-    .principle h3 {
+        .principle h3 {
       font-size: 22px;
       font-weight: 500;
       letter-spacing: -1px;
@@ -564,7 +565,6 @@
       .split { grid-template-columns: 1fr; gap: 24px; }
       .deliver-grid, .principles-grid { grid-template-columns: 1fr; }
       .deliver-card { min-height: 140px; }
-      .principle .section-number { margin-bottom: 24px; }
       .page-section { padding-bottom: 120px; }
     }
 
@@ -647,11 +647,7 @@
     <!-- ABERTURA -->
     <section class="intro">
       <div class="container">
-        <div class="section-label">
-          <div></div>
-          <span class="section-number">/01</span>
-        </div>
-        <h1 data-reveal>Critério estético não se aprende em manual.</h1>
+        <h1 data-reveal>Critério estético não<br />se aprende em manual.</h1>
         <div class="intro-grid">
           <div data-reveal="left">
             <img src="assets/kleber.jpg" class="intro-img" alt="Kleber Viola, fundador da Rooker" width="1100" height="1410" />
@@ -662,6 +658,12 @@
               <p>Vinte e quatro anos de estrada até aqui, entre publicidade, design gráfico, agências e estúdios, com passagem por estúdio internacional atendendo marcas globais. Cada uma dessas passagens ensina uma coisa diferente, e todas aparecem num projeto de marca. É esse critério que a Rooker aplica hoje em projetos que normalmente não teriam acesso a ele.</p>
             </div>
             <p class="intro-bridge">Critério sozinho não basta. Sem processo, ele vira talento que funciona às vezes.</p>
+            <a href="kleber-viola.html" class="btn btn-sm intro-link">
+              <svg class="arr-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              <span class="btn-label">Conhecer o fundador</span>
+              <span class="btn-circle"></span>
+              <svg class="arr-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -672,7 +674,6 @@
       <div class="container">
         <div class="page-head" data-reveal>
           <h2>O método</h2>
-          <span class="section-number">/02</span>
         </div>
 
         <div class="method-list">
@@ -705,7 +706,6 @@
       <div class="container">
         <div class="split" data-reveal>
           <div>
-            <span class="section-number">/03</span>
             <h2>Aliada no processo, autoria da Rooker</h2>
           </div>
           <div class="body-text">
@@ -720,22 +720,18 @@
       <div class="container">
         <div class="page-head" data-reveal>
           <h2>O que o cliente recebe</h2>
-          <span class="section-number">/04</span>
         </div>
         <div class="deliver-text body-text" data-reveal>
           <p class="lead">A identidade visual completa e o sistema que permite aplicá-la sem depender do estúdio para cada peça nova.</p>
         </div>
         <div class="deliver-grid">
           <div class="deliver-card" data-reveal data-delay="1">
-            <span>01</span>
             <p>Manual de marca</p>
           </div>
           <div class="deliver-card" data-reveal data-delay="2">
-            <span>02</span>
             <p>Arquivos organizados por uso</p>
           </div>
-          <div class="deliver-card is-key" data-reveal data-delay="3">
-            <span>03</span>
+          <div class="deliver-card" data-reveal data-delay="3">
             <p>Um documento com as decisões e o motivo de cada uma</p>
           </div>
         </div>
@@ -750,22 +746,18 @@
       <div class="container">
         <div class="page-head" data-reveal>
           <h2>Princípios</h2>
-          <span class="section-number">/05</span>
         </div>
         <p class="page-sub" data-reveal>Três princípios sustentam o trabalho.</p>
         <div class="principles-grid">
           <div class="principle" data-reveal data-delay="1">
-            <span class="section-number">01</span>
             <h3>A Rooker apresenta uma direção, não um leque de versões.</h3>
             <div class="body-text"><p>Escolher entre três opções por gosto devolve ao cliente uma decisão que é responsabilidade do estúdio tomar. Se a investigação foi bem feita, existe uma resposta certa para o problema, e o trabalho é chegar nela e sustentar por quê.</p></div>
           </div>
           <div class="principle" data-reveal data-delay="2">
-            <span class="section-number">02</span>
             <h3>Toda decisão vem com argumento.</h3>
             <div class="body-text"><p>Cor, palavra, espaçamento, tudo tem fundamento explicável. Sem isso, design vira gosto pessoal disfarçado de proposta.</p></div>
           </div>
           <div class="principle" data-reveal data-delay="3">
-            <span class="section-number">03</span>
             <h3>O padrão não se negocia.</h3>
             <div class="body-text"><p>Não por rigidez. Por respeito ao resultado e ao que o cliente está pagando para receber.</p></div>
           </div>
